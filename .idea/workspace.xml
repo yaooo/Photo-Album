@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4fcb70b5-0c05-4c0a-8f2f-5b980e60d0cc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/AlbumList.fxml" afterPath="$PROJECT_DIR$/src/View/AlbumList.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/Login.fxml" afterPath="$PROJECT_DIR$/src/View/Login.fxml" />
-    </list>
+    <list default="true" id="4fcb70b5-0c05-4c0a-8f2f-5b980e60d0cc" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +55,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TagList.fxml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TagList.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/View/TagList.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
@@ -67,6 +63,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
               <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IndividualPhotoDisplay.fxml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/View/IndividualPhotoDisplay.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -95,6 +104,7 @@
         <option value="$PROJECT_DIR$/src/View/libs/PhotoList.fxml" />
         <option value="$PROJECT_DIR$/src/View/PhotoList.fxml" />
         <option value="$PROJECT_DIR$/src/View/TagList.fxml" />
+        <option value="$PROJECT_DIR$/src/View/IndividualPhotoDisplay.fxml" />
       </list>
     </option>
   </component>
@@ -381,6 +391,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/IndividualPhotoDisplay.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="49" />
           <folding />
         </state>
       </provider>
