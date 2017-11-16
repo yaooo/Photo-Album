@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.text.Text;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -54,6 +58,20 @@ public class LoginController {
        
         try {
 	        if(username.equals("admin")) {
+	        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AdminList.fxml"));
+				parent = (Parent) loader.load();
+				        
+				AdminListController ctrl = loader.getController();
+				Scene scene = new Scene(parent);
+							
+				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
+			                
+				ctrl.start(app_stage);
+			             
+			    app_stage.setScene(scene);
+			    app_stage.show();  
+	        }
+	        else if(inList(username)) {
 	        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
 				parent = (Parent) loader.load();
 				        
@@ -67,10 +85,31 @@ public class LoginController {
 			    app_stage.setScene(scene);
 			    app_stage.show();  
 	        }
-	    } catch (IOException e) {
+	        else {
+	        	System.out.println("invalid Login!");
+	        }
+        
+        
+        
+        } catch (IOException e) {
 	    	e.printStackTrace();
 	    }
         	
+    }
+    
+    private boolean inList(String login) throws IOException {
+    	File Users = new File("UserList.txt");
+		FileReader UserFR = new FileReader(Users);
+		BufferedReader UserBR=new BufferedReader(UserFR);
+		String username;
+		username=UserBR.readLine();
+		while(username!=null) {
+			if(username.equals(login)) {
+				return true;
+			}
+			username=UserBR.readLine();
+		};
+    	return false;
     }
     
     
