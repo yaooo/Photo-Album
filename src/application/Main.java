@@ -10,22 +10,21 @@ import controller.LoginController;;
 
 
 public class Main extends Application {
-	LoginController master;
+	Stage mainStage;
 	@Override
 	public void start(Stage stage) {
+		mainStage = stage;
 		try {
 				
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/View/Login.fxml"));
-			BorderPane root = loader.load();
-			master = loader.getController();
-			master.start(stage);
+			BorderPane root =(BorderPane) loader.load();
 			Scene scene = new Scene(root);
-
-			stage.setTitle("Song Library");
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.show();
+			
+			mainStage.setScene(scene);
+			mainStage.setTitle("Song Library");
+			mainStage.setResizable(false);
+			mainStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
