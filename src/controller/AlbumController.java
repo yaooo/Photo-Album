@@ -35,7 +35,7 @@ public class AlbumController {
 	private Button Exit;
 	@FXML
 	private Button CreateAlbum;
-	
+
 	public void start() throws IOException {
 		
 	}

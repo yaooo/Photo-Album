@@ -2,6 +2,8 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -43,5 +45,16 @@ public class LoginController {
 		System.out.println("login successful");
 		
 	}
+
+    @FXML protected void handleLoginButtonAction(ActionEvent event) throws ClassNotFoundException {
+
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        Parent parent;
+    }
+
+
+
 	
 }
