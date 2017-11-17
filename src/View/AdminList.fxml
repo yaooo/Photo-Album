@@ -9,7 +9,7 @@
    <children>
       <Button fx:id="Create" layoutX="224.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleCreateButton" text="Create User" />
       <Button fx:id="Delete" layoutX="224.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete User" />
-      <ListView fx:id="UserList" layoutX="14.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="List" layoutX="14.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="Exit" layoutX="224.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="25.0" prefWidth="78.0" text="Exit" />
       <TextField fx:id="inputField" layoutX="88.0" layoutY="255.0" promptText="New User" />
    </children>

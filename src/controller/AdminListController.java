@@ -1,4 +1,5 @@
 package controller;
+import model.*;
 import java.io.*;
 import java.util.*;
 import javafx.fxml.FXML;
@@ -38,25 +39,18 @@ public class AdminListController {
 	@FXML
 	private Button Exit;
 	@FXML
-	private ListView UserList;
+	private ListView List;
 	@FXML
 	private TextField inputField;
 	
+	UserList u;
 	private ObservableList<String> obsList = FXCollections.observableArrayList();    
-	public void start(Stage stage) throws IOException {
-		File Users = new File("UserList.txt");
-		FileReader UserFR = new FileReader(Users);
-		BufferedReader UserBR=new BufferedReader(UserFR);
-		String username;
-		username=UserBR.readLine();
-		while(username!=null) {
-			obsList.add(username);
-			username=UserBR.readLine();
-		}
-		
-		UserList.setItems(obsList);
+	public void start(Stage stage) throws IOException,ClassNotFoundException {
+		u=new UserList();
+		u=UserList.read();
+		updateDisplay();
 	      // select the first item
-	    UserList.getSelectionModel().select(0);
+	    List.getSelectionModel().select(0);
 
 	     
 	}
@@ -64,17 +58,7 @@ public class AdminListController {
 		Parent parent;
 		
 		 try {
-			 		File Users = new File("UserList.txt");
-			 		FileWriter UserFW=new FileWriter(Users);
-			 		BufferedWriter UserBW=new BufferedWriter(UserFW);
-		        	for(int i=0;i<obsList.size();i++) {
-		        		UserBW.write(obsList.get(i));
-		        		if(i!=obsList.size()-1) {
-		        			UserBW.newLine();
-		        		}
-		        	}
-		        	UserBW.flush();
-		        	UserBW.close();
+			 		u.write(u);
 			 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
 					parent = (Parent) loader.load();
 					        
@@ -95,19 +79,39 @@ public class AdminListController {
 
 	@FXML protected void handleCreateButton(ActionEvent event) throws ClassNotFoundException{
 		String newUser=inputField.getText();
+		
 		if(newUser==null || newUser.equals("")) {
-			System.out.println("please enter a valid username!");
+			error("please enter a valid username!");
 		}
 		else if (obsList.contains(newUser)) {
-			System.out.println("user already exsists!");
+			error("user already exsists!");
 		}
 		else {
-			obsList.add(newUser);
+			User insert= new User(newUser);
+			u.addUser(insert);
+			updateDisplay();
 		}
+
 	}
 	
 	@FXML protected void handleDeleteButton(ActionEvent event) throws ClassNotFoundException{
-		String s =(String) UserList.getSelectionModel().getSelectedItem();
-		obsList.remove(s);
+		String s =(String) List.getSelectionModel().getSelectedItem();
+		u.removeUser(s);
+		updateDisplay();
+	}
+	
+	public void updateDisplay() {
+		obsList.clear();
+		for(User a : u.getUserList()) {
+			obsList.add(a.getName());
+		}
+		List.setItems(obsList);
+	}
+	private void error(String msg) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Input error");
+		alert.setContentText(msg);
+		alert.showAndWait();
 	}
 }

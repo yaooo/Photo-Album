@@ -1,5 +1,5 @@
 package controller;
-
+import model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,10 +31,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.UserList;
 import javafx.event.ActionEvent;
 import javafx.application.*;
 
-public class LoginController {
+public class LoginController{
 	@FXML
 	private Button loginButton;
 	@FXML
@@ -42,15 +43,17 @@ public class LoginController {
 	@FXML
 	private PasswordField passwordField;
 	
-	public void start(Stage stage) throws IOException {
-		
+	UserList u;
+	
+	public void start(Stage stage) throws IOException, ClassNotFoundException {
+	
 	}
-	public void handleLoginButtonAction() throws IOException {
-		System.out.println("login successful");
-		
+	public void initialize() throws IOException,ClassNotFoundException {
+		u=new UserList();
+		u=UserList.read();
 	}
 
-    @FXML protected void handleLoginButtonAction(ActionEvent event) throws ClassNotFoundException {
+    @FXML protected void handleLoginButtonAction(ActionEvent event) throws IOException, ClassNotFoundException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -71,7 +74,7 @@ public class LoginController {
 			    app_stage.setScene(scene);
 			    app_stage.show();  
 	        }
-	        else if(inList(username)) {
+	        else if(u.inList(username)) {
 	        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
 				parent = (Parent) loader.load();
 				        
@@ -97,24 +100,5 @@ public class LoginController {
         	
     }
     
-    private boolean inList(String login) throws IOException {
-    	File Users = new File("UserList.txt");
-		FileReader UserFR = new FileReader(Users);
-		BufferedReader UserBR=new BufferedReader(UserFR);
-		String username;
-		username=UserBR.readLine();
-		while(username!=null) {
-			if(username.equals(login)) {
-				return true;
-			}
-			username=UserBR.readLine();
-		};
-    	return false;
-    }
-    
-    
-
-
-
 	
 }
