@@ -90,6 +90,7 @@ public class AdminListController {
 			User insert= new User(newUser);
 			u.addUser(insert);
 			updateDisplay();
+            inputField.clear();
 		}
 
 	}
