@@ -1,7 +1,8 @@
 package controller;
-
+import model.*;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,14 +47,29 @@ public class AlbumController {
 	private Button Exit;
 	@FXML
 	private Button CreateAlbum;
-
-	public void start(Stage stage) throws IOException {
+	@FXML
+	private TextField newAlbumText;
+	
+	private ObservableList<String> obsList = FXCollections.observableArrayList();
+	User currentUser;
+	private List<Album> albums;
+	UserList u;
+	public void start(Stage stage , User username) throws IOException, ClassNotFoundException {
+		currentUser=username;
+		albums=new ArrayList<Album>();
+		albums=currentUser.getAlbums();
+		updateDisplay();
+		u=new UserList();
+		u=UserList.read();
 		
 	}
 	
 	@FXML protected void handleExitButton(ActionEvent event) throws ClassNotFoundException{
 		Parent parent;
 		 try {
+			 		u.removeUser(currentUser.getName());
+					u.addUser(currentUser);
+			 		u.write(u);
 		        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
 					parent = (Parent) loader.load();
 					        
@@ -70,5 +86,26 @@ public class AlbumController {
 		 }catch (IOException e) {
 		    	e.printStackTrace();
 		    }
+	}
+	
+	@FXML protected void handleCreateButton(ActionEvent event) {
+		String s= newAlbumText.getText();
+		currentUser.addAlbum(s);
+		albums=currentUser.getAlbums();
+		updateDisplay();
+	}
+	@FXML protected void handleDeleteButton(ActionEvent event) {
+		String s =(String) listAlbum.getSelectionModel().getSelectedItem();
+		Album delete=currentUser.getAlbumByName(s);
+		currentUser.removeAlbum(delete);
+		albums=currentUser.getAlbums();
+		updateDisplay();
+	}
+	public void updateDisplay() {
+		obsList.clear();
+		for(Album a:albums) {
+			obsList.add(a.getName());
+		}
+		listAlbum.setItems(obsList);
 	}
 }

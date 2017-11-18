@@ -83,7 +83,7 @@ public class LoginController{
 							
 				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
 			                
-				ctrl.start(app_stage);
+				ctrl.start(app_stage , u.getUserByUsername(username));
 			             
 			    app_stage.setScene(scene);
 			    app_stage.show();  

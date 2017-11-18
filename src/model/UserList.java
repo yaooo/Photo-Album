@@ -51,6 +51,14 @@ public class UserList implements Serializable {
 		}
 		return false;
 	}
+	public User getUserByUsername(String username) {
+		  for (User u : users)
+		  {
+			  if (u.getName().equals(username))
+				  return u;
+		  }
+		  return null;
+	  }
 	public String toString() {
 		if (users == null) {
 			return "no users";
