@@ -27,7 +27,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Button fx:id="DeleteAlbum" layoutX="24.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="31.0" prefWidth="132.0" text="Delete Album" />
-                  <Button fx:id="RenameAlbum" layoutX="24.0" layoutY="201.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" text="Rename Album" />
+                  <Button fx:id="RenameAlbum" layoutX="24.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleRenameButton" prefHeight="31.0" prefWidth="132.0" text="Rename Album" />
                   <Button fx:id="OpenAlbum" layoutX="25.0" layoutY="280.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" text="Open Album" />
                   <Button fx:id="Exit" layoutX="24.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="31.0" prefWidth="132.0" text="Exit" />
                   <Button fx:id="CreateAlbum" layoutX="23.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleCreateButton" prefHeight="31.0" prefWidth="132.0" text="Create Album">

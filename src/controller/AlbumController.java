@@ -61,7 +61,15 @@ public class AlbumController {
 		updateDisplay();
 		u=new UserList();
 		u=UserList.read();
-		
+		stage.setOnCloseRequest( event -> {
+    		try {
+    			u.removeUser(currentUser.getName());
+    			u.addUser(currentUser);
+    			u.write(u);}
+    		catch(IOException e){
+    			e.printStackTrace();
+    		}
+    } );
 	}
 	
 	@FXML protected void handleExitButton(ActionEvent event) throws ClassNotFoundException{
@@ -99,6 +107,11 @@ public class AlbumController {
 		Album delete=currentUser.getAlbumByName(s);
 		currentUser.removeAlbum(delete);
 		albums=currentUser.getAlbums();
+		updateDisplay();
+	}
+	@FXML protected void handleRenameButton(ActionEvent event) {
+		String s =(String) listAlbum.getSelectionModel().getSelectedItem();
+		currentUser.getAlbumByName(s).setName(newAlbumText.getText());
 		updateDisplay();
 	}
 	public void updateDisplay() {
