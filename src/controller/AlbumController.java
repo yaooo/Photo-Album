@@ -113,6 +113,32 @@ public class AlbumController {
 		currentUser.getAlbumByName(s).setName(newAlbumText.getText());
 		updateDisplay();
 	}
+	@FXML protected void handleOpenButton(ActionEvent event) throws ClassNotFoundException {
+		Parent parent;
+		 try {
+			 		u.removeUser(currentUser.getName());
+					u.addUser(currentUser);
+			 		u.write(u);
+			 		String s =(String) listAlbum.getSelectionModel().getSelectedItem();
+			 		Album a =currentUser.getAlbumByName(s);
+		        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/PhotoList.fxml"));
+					parent = (Parent) loader.load();
+					        
+					PhotoListController ctrl = loader.getController();
+					Scene scene = new Scene(parent);
+								
+					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
+				                
+					ctrl.start(app_stage,currentUser,a);
+				             
+				    app_stage.setScene(scene);
+				    app_stage.show();  
+		        
+		 }catch (IOException e) {
+		    	e.printStackTrace();
+		    }
+		
+	}
 	public void updateDisplay() {
 		obsList.clear();
 		for(Album a:albums) {
