@@ -97,6 +97,15 @@ public class AlbumController {
 	
 	@FXML protected void handleCreateButton(ActionEvent event) {
 		String s= newAlbumText.getText();
+
+		if(s==null || s.trim().length() == 0){
+		    alert("Error", "Invalid Name", "Please try again.");
+		    return;
+        }
+        if(checkForDuplicate(s)){
+            alert("Error", "Duplicated Name", "Please try again.");
+            return;
+        }
 		currentUser.addAlbum(s);
 		albums=currentUser.getAlbums();
 		updateDisplay();
@@ -146,4 +155,21 @@ public class AlbumController {
 		}
 		listAlbum.setItems(obsList);
 	}
+
+	private void alert(String title, String headerText, String contentText){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
+    private boolean checkForDuplicate(String name){
+        List<Album> nameList = currentUser.getAlbums();
+	    for(int i = 0; i < nameList.size(); i++){
+	        if(nameList.get(i).getName().equals(name))
+	            return true;
+        }
+	    return false;
+    }
 }

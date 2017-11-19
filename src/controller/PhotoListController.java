@@ -1,14 +1,19 @@
 package controller;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import model.*;
 import controller.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.awt.image.BufferedImage;
@@ -32,24 +37,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -78,7 +72,11 @@ public class PhotoListController {
     private Button exit1;
     @FXML
     private ImageView photoList;
-    
+    @FXML
+    private ScrollPane scroll1;
+    @FXML
+    private TilePane tile1;
+
     private ObservableList<Photo> obsList;
 	private List<Photo> photos;
 	private Album album;
@@ -88,14 +86,24 @@ public class PhotoListController {
 		u=new UserList();
 		u=UserList.read();
 		currentUser=username;
-		photos=new ArrayList<Photo>();
-		album=a;
+		photos = new ArrayList<Photo>();
+		album = a;
 		photos = album.getPhotos();
-		System.out.println(album.getCount());
+//		System.out.println(album.getCount());
 		obsList = FXCollections.observableArrayList(photos);
-		
-		
-	}
+        display(album.getPhotos());
+
+    }
+
+	private void display(List<Photo> photoList){
+        for (Photo temp : photoList){
+            Image pixels = temp.getImage();
+            tile1.getChildren().add(new ImageView(pixels));
+        }
+    }
+
+
+
 	@FXML protected void handleAddButton(ActionEvent event) throws IOException {
 		choosePhoto(event);
 	}
@@ -152,7 +160,9 @@ public class PhotoListController {
         album.addPhoto(tempPhoto);
         obsList.add(tempPhoto);
 		UserList.write(u);
-		
+        System.out.println(album.getCount());
+
+        display(album.getPhotos());
         
 
 	}
@@ -179,6 +189,6 @@ public class PhotoListController {
 		    	e.printStackTrace();
 		 }
 	}
-	
+
 	
 }
