@@ -1,4 +1,5 @@
 package controller;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -71,17 +72,16 @@ public class PhotoListController {
     @FXML
     private Button exit1;
     @FXML
-    private ImageView photoList;
-    @FXML
-    private ScrollPane scroll1;
-    @FXML
-    private TilePane tile1;
+    private ListView photoList1;
+
+    private ObservableList<ImageView> storeImg;
 
     private ObservableList<Photo> obsList;
 	private List<Photo> photos;
 	private Album album;
 	private User currentUser;
 	private UserList u;
+
 	public void start(Stage Stage, User username,Album a) throws ClassNotFoundException, IOException {
 		u=new UserList();
 		u=UserList.read();
@@ -89,17 +89,33 @@ public class PhotoListController {
 		photos = new ArrayList<Photo>();
 		album = a;
 		photos = album.getPhotos();
+		storeImg = FXCollections.observableArrayList();
 //		System.out.println(album.getCount());
 		obsList = FXCollections.observableArrayList(photos);
-        display(album.getPhotos());
-
+		display(photos);
     }
 
 	private void display(List<Photo> photoList){
-        for (Photo temp : photoList){
-            Image pixels = temp.getImage();
-            tile1.getChildren().add(new ImageView(pixels));
+	    if(storeImg != null)
+    	    storeImg.clear();
+
+	    if(photoList == null)
+	        return;
+
+	    if(photoList.size() == 0)
+	        return;
+
+	    for(Photo p : photoList){
+            Image img = p.getImage();
+            ImageView imgView = new ImageView();
+            imgView.setImage(img);
+            imgView.setPreserveRatio(true);
+
+            imgView.setFitWidth(100);
+
+            storeImg.add(imgView);
         }
+        photoList1.setItems(storeImg);
     }
 
 
@@ -154,16 +170,11 @@ public class PhotoListController {
         //else, create a new photo object
         if (!photoFound)
         	tempPhoto = new Photo(image);
-        
-        
-        
+
         album.addPhoto(tempPhoto);
         obsList.add(tempPhoto);
 		UserList.write(u);
-        System.out.println(album.getCount());
-
-        display(album.getPhotos());
-        
+        display(photos);
 
 	}
 	@FXML protected void handleExitButton(ActionEvent event)throws IOException, ClassNotFoundException{
