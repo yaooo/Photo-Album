@@ -1,5 +1,5 @@
 package application;
-import model.*;	
+import model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -34,7 +34,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		launch(args);
 		

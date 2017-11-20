@@ -226,12 +226,75 @@ public class PhotoListController {
 
     @FXML
     protected void handleCopyToButton(ActionEvent event)throws IOException, ClassNotFoundException{
+        if(photos == null)
+            return;
+        if(photos.size() == 0)
+            return;
+        int s = photoList1.getSelectionModel().getSelectedIndex();
+        List <Album> abs = currentUser.getAlbums();
 
-    }
+        if(abs.size() == 1){
+            alert("Error.", "Cannot copy to other album(s).", "There is no other album.");
+        }
+
+        List<String> choices = new ArrayList<>();
+
+        String defaulSelection = null;
+        for(Album temp : abs){
+            if(!temp.getName().equals(this.album.getName())){
+                choices.add(temp.getName());
+                defaulSelection = temp.getName();
+            }
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(defaulSelection, choices);
+        dialog.setTitle("Copy To");
+        dialog.setHeaderText("Choose an album");
+        dialog.setContentText("Copy to:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String dest_album_name = result.get();
+            Album dest_album = currentUser.getAlbumByName(dest_album_name);
+
+            dest_album.addPhoto(photos.get(s));
+
+        }
+	}
 
 	@FXML
 	protected void handleMoveButton(ActionEvent event)throws IOException, ClassNotFoundException{
+        if(photos == null)
+            return;
+        if(photos.size() == 0)
+            return;
+        int s = photoList1.getSelectionModel().getSelectedIndex();
+        List <Album> abs = currentUser.getAlbums();
 
+        if(abs.size() == 1){
+            alert("Error.", "Cannot move the selection to other album(s).", "There is no other album.");
+        }
+
+        List<String> choices = new ArrayList<>();
+
+        String defaulSelection = null;
+        for(Album temp : abs){
+            if(!temp.getName().equals(this.album.getName())){
+                choices.add(temp.getName());
+                defaulSelection = temp.getName();
+            }
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(defaulSelection, choices);
+        dialog.setTitle("Move To");
+        dialog.setHeaderText("Choose an album");
+        dialog.setContentText("Move to:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String dest_album_name = result.get();
+            Album dest_album = currentUser.getAlbumByName(dest_album_name);
+            dest_album.addPhoto(photos.get(s));
+            photos.remove(s);
+        }
     }
 
     @FXML
@@ -249,5 +312,11 @@ public class PhotoListController {
 
     }
 
-
+    private void alert(String title, String headerText, String contentText){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 }
