@@ -105,9 +105,7 @@ public class Photo implements Serializable {
 		return true;
 	}
 	
-	public Calendar getCalender() {
-		return this.cal;
-	}
+	
 	
 	public boolean isWithinDateRange(LocalDate fromDate, LocalDate toDate) {
 		LocalDate date = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -123,7 +121,7 @@ public class Photo implements Serializable {
 	public Photo carbonCopy() {
 		Photo copy = new Photo(this.getImage());
 		copy.tags=this.getTags();
-		copy.cal=this.getCalender();
+		copy.cal=this.getCalendar();
 		copy.caption=this.getCaption();
 		return copy;
 	}

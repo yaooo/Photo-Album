@@ -33,6 +33,7 @@ public class Album implements Serializable {
 		photos.add(photo);
 		findOldestPhoto();
 		findEarliestPhoto();
+		
 	}
 	
 	
