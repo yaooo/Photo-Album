@@ -8,18 +8,19 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhotoListController">
    <children>
-      <Button fx:id="copyPhoto1" layoutX="523.0" layoutY="75.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" text="Copy Photo" />
-      <Button fx:id="movePhoto1" layoutX="528.0" layoutY="130.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" text="Move Photo" />
-      <Button fx:id="addPhoto1" layoutX="523.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="118.0" text="Add Photo" />
-      <Button fx:id="renamePhoto1" layoutX="528.0" layoutY="243.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="108.0" text="Rename Photo" />
-      <Button fx:id="photoTag1" layoutX="523.0" layoutY="285.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" text="Photo Tag" />
-      <Button fx:id="slideShow1" layoutX="523.0" layoutY="339.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" text="Slide Show" />
-      <Button fx:id="exit1" layoutX="486.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="31.0" prefWidth="170.0" text="Exit" />
-      <Text fx:id="albumTitle1" layoutX="259.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album title">
+      <Button fx:id="copyPhoto1" layoutX="523.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleCopyToButton" prefHeight="31.0" prefWidth="118.0" text="Copy To" />
+      <Button fx:id="movePhoto1" layoutX="523.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleMoveButton" prefHeight="31.0" prefWidth="118.0" text="Move Photo" />
+      <Button fx:id="addPhoto1" layoutX="523.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="118.0" text="Add Photo" />
+      <Button fx:id="renamePhoto1" layoutX="523.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleRenameButton" prefHeight="31.0" prefWidth="118.0" text="Rename Photo" />
+      <Button fx:id="photoTag1" layoutX="523.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleTagButton" prefHeight="31.0" prefWidth="118.0" text="Photo Tag" />
+      <Button fx:id="slideShow1" layoutX="523.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleSlideShowButton" prefHeight="31.0" prefWidth="118.0" text="Slide Show" />
+      <Button fx:id="exit1" layoutX="523.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="31.0" prefWidth="118.0" text="Exit" />
+      <Text fx:id="albumTitle1" layoutX="150.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Album title&gt;">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
       <ListView fx:id="photoList1" layoutX="59.0" layoutY="61.0" prefHeight="501.0" prefWidth="407.0" />
+      <Button fx:id="removePhoto" layoutX="523.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="31.0" prefWidth="118.0" text="Remove Photo" />
    </children>
 </AnchorPane>

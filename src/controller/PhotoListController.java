@@ -62,7 +62,7 @@ public class PhotoListController {
     @FXML
     private Button movePhoto1;
     @FXML
-    private Button addPhoto1;
+    private Button addPhoto1, removePhoto1;
     @FXML
     private Button renamePhoto1;
     @FXML
@@ -93,6 +93,7 @@ public class PhotoListController {
 //		System.out.println(album.getCount());
 		obsList = FXCollections.observableArrayList(photos);
 		display(photos);
+        albumTitle1.setText(album.getName());
     }
 
 	private void display(List<Photo> photoList){
@@ -201,5 +202,52 @@ public class PhotoListController {
 		 }
 	}
 
-	
+    @FXML
+    protected void handleRemoveButton(ActionEvent event)throws IOException, ClassNotFoundException{
+        if(photos == null)
+            return;
+        if(photos.size() == 0)
+            return;
+	    int s = photoList1.getSelectionModel().getSelectedIndex();
+        if(s >= 0) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setContentText("Are you ok with this?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                photos.remove(s);
+            } else {
+                return;
+            }
+        }
+        display(photos);
+    }
+
+    @FXML
+    protected void handleCopyToButton(ActionEvent event)throws IOException, ClassNotFoundException{
+
+    }
+
+	@FXML
+	protected void handleMoveButton(ActionEvent event)throws IOException, ClassNotFoundException{
+
+    }
+
+    @FXML
+    protected void handleSlideShowButton(ActionEvent event)throws IOException, ClassNotFoundException{
+
+    }
+
+    @FXML
+    protected void handleRenameButton(ActionEvent event)throws IOException, ClassNotFoundException{
+
+    }
+
+    @FXML
+    protected void handleTagButton(ActionEvent event)throws IOException, ClassNotFoundException{
+
+    }
+
+
 }
