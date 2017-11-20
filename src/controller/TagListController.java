@@ -41,17 +41,17 @@ public class TagListController {
         display(tags);
     }
 
-    private void display(List<Tag> t){
+    private void display(List<Tag> tags){
         if(obsList != null)
             obsList.clear();
 
-        if(t == null)
+        if(tags == null)
             return;
 
-        if(t.size() == 0)
+        if(tags.size() == 0)
             return;
 
-        for(Tag p : t){
+        for(Tag p : tags){
             String temp = "(" + p.getType() + "," + p.getValue() + ")";
             obsList.add(temp);
         }
