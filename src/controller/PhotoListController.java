@@ -289,7 +289,21 @@ public class PhotoListController {
     }
 
     @FXML
-    protected void handleRenameButton(ActionEvent event) throws IOException, ClassNotFoundException {
+    protected void handleRecaptionButton(ActionEvent event) {
+        if (photos == null)
+            return;
+        if (photos.size() == 0)
+            return;
+        int s = photoList1.getSelectionModel().getSelectedIndex();
+        if (s >= 0) {
+            Photo p = photos.get(s);
+            TextInputDialog dialog = new TextInputDialog(p.getCaption());
+            dialog.setTitle("Edit Caption");
+            dialog.setHeaderText("New Caption?");
+
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(cap -> p.setCaption(cap));
+        }
 
     }
 
@@ -316,7 +330,6 @@ public class PhotoListController {
 
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            System.out.println("xxxxxx"+photos.get(s));
             ctrl.start(app_stage, photos.get(s), currentUser, album);
 
             app_stage.setScene(scene);
