@@ -55,11 +55,14 @@ public class PhotoListController {
     private Button exit1;
     @FXML
     private ListView photoList1;
+    @FXML 
+    private ListView captionList;
+
 
     private ObservableList<ImageView> storeImg;
-
     private ObservableList<Photo> obsList;
     private List<Photo> photos;
+    private ObservableList<String> obsList2;
     private Album album;
     private User currentUser;
     private UserList u;
@@ -74,11 +77,15 @@ public class PhotoListController {
         storeImg = FXCollections.observableArrayList();
 //		System.out.println(album.getCount());
         obsList = FXCollections.observableArrayList(photos);
+        obsList2 = FXCollections.observableArrayList();
         display(photos);
         albumTitle1.setText(album.getName());
+        captionList.setMouseTransparent( true );
+        captionList.setFocusTraversable( false );
     }
 
     private void display(List<Photo> photoList) {
+    	obsList2.clear();
         if (storeImg != null)
             storeImg.clear();
 
@@ -97,8 +104,10 @@ public class PhotoListController {
             imgView.setFitWidth(100);
 
             storeImg.add(imgView);
+            obsList2.add(p.getCaption());
         }
         photoList1.setItems(storeImg);
+        captionList.setItems(obsList2);
     }
 
 
@@ -304,6 +313,7 @@ public class PhotoListController {
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(cap -> p.setCaption(cap));
         }
+        display(photos);
 
     }
 
