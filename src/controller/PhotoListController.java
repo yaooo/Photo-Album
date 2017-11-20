@@ -1,17 +1,7 @@
 package controller;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import model.*;
-import controller.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -23,34 +13,23 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.Album;
 import model.Photo;
 import model.SerializableImage;
@@ -332,12 +311,12 @@ public class PhotoListController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/IndividualPhotoDisplay.fxml"));
             parent = (Parent) loader.load();
 
-            //TODO: DEBUG
-            DisplayController ctrl = loader.getController();
+            IndividualPhotoDisplayController ctrl = loader.getController();
             Scene scene = new Scene(parent);
 
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+            System.out.println("xxxxxx"+photos.get(s));
             ctrl.start(app_stage, photos.get(s), currentUser, album);
 
             app_stage.setScene(scene);

@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Album;
@@ -14,29 +15,29 @@ import model.Photo;
 import model.User;
 import model.UserList;
 
-import javax.swing.text.html.ListView;
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class DisplayController {
+public class IndividualPhotoDisplayController {
 
     @FXML
-    private ImageView img;
+    private ImageView PhotoDisplay;
 
     @FXML
     private ListView IndividualTagList;
 
     @FXML
-    private Button Done;
+    private Button IndividualDone;
 
     private User currentUsername;
     private Album album;
     public void start(Stage Stage, Photo photo, User username, Album a) throws ClassNotFoundException, IOException {
+//        PhotoDisplay = new ImageView();
         album = a;
         currentUsername = username;
-        img.setImage(photo.getImage());
+        PhotoDisplay.setImage(photo.getImage());
     }
 
     private void DisplayTags(){
@@ -45,8 +46,8 @@ public class DisplayController {
     }
 
 
-
-    private void handleDoneButton(ActionEvent event) throws ClassNotFoundException, IOException{
+    @FXML
+    protected void handleDoneButton(ActionEvent event) throws IOException,  ClassNotFoundException {
        //todo: NEED TO TEST IT
         Parent parent;
         try {
