@@ -330,8 +330,8 @@ public class PhotoListController {
     }
 
     @FXML
-    protected void handleRecaptionButton(ActionEvent event) {
-        if (photos == null)
+    protected void handleRecaptionButton(ActionEvent event) throws ClassNotFoundException {
+    	if (photos == null)
             return;
         if (photos.size() == 0)
             return;
@@ -351,16 +351,28 @@ public class PhotoListController {
 
     @FXML
     protected void handleTagButton(ActionEvent event) throws IOException, ClassNotFoundException {
-    	int s = photoList1.getSelectionModel().getSelectedIndex();
-        Photo p = photos.get(s);
-    	TextInputDialog dialog = new TextInputDialog();
-    	dialog.setTitle("New tag");
-    	dialog.setHeaderText("Please enter your tag, use the format \"type:value\"");
-    	
-    	Optional<String> result = dialog.showAndWait();
-    	String parts[]=result.get().split(":");
-    	p.addTag(parts[0],parts[1]);
-    	display(photos);
+    	Parent parent;
+        try {
+            u.removeUser(currentUser.getName());
+            u.addUser(currentUser);
+            u.write(u);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/TagList.fxml"));
+            parent = (Parent) loader.load();
+
+            TagListController ctrl = loader.getController();
+            Scene scene = new Scene(parent);
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            int s = photoList1.getSelectionModel().getSelectedIndex();
+            
+            ctrl.start(app_stage, currentUser,album,photos.get(s));
+
+            app_stage.setScene(scene);
+            app_stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
