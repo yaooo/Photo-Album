@@ -2,6 +2,7 @@ package controller;
 
 import model.Tag;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,20 +47,25 @@ public class IndividualPhotoDisplayController {
     private User currentUsername;
     private Album album;
     private Photo currentPhoto;
-
+    private ObservableList<String> obsList;
     public void start(Stage Stage, Photo photo, User username, Album a) throws ClassNotFoundException, IOException {
 //        PhotoDisplay = new ImageView();
         album = a;
         currentUsername = username;
         currentPhoto = photo;
         PhotoDisplay.setImage(photo.getImage());
-
+        obsList = FXCollections.observableArrayList();  
+        DisplayTags();
         DisplayCaption();
         DisplayDateTime();
     }
 
     private void DisplayTags(){
-        //TODO
+    	obsList.clear();
+    	for(Tag t:currentPhoto.getTags()) {
+    		obsList.add(t.toString());
+    	}
+    	IndividualTagList.setItems(obsList);
     }
 
     private void DisplayCaption(){

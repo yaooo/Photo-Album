@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.control.*;
-
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -35,6 +34,7 @@ import model.Photo;
 import model.SerializableImage;
 import model.User;
 import model.UserList;
+import model.Tag;
 
 public class PhotoListController {
     @FXML
@@ -319,7 +319,16 @@ public class PhotoListController {
 
     @FXML
     protected void handleTagButton(ActionEvent event) throws IOException, ClassNotFoundException {
-
+    	int s = photoList1.getSelectionModel().getSelectedIndex();
+        Photo p = photos.get(s);
+    	TextInputDialog dialog = new TextInputDialog();
+    	dialog.setTitle("New tag");
+    	dialog.setHeaderText("Please enter your tag, use the format \"type:value\"");
+    	
+    	Optional<String> result = dialog.showAndWait();
+    	String parts[]=result.get().split(":");
+    	p.addTag(parts[0],parts[1]);
+    	display(photos);
     }
 
 
