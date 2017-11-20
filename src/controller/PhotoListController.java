@@ -2,7 +2,6 @@ package controller;
 
 import javafx.scene.control.*;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
@@ -82,6 +81,7 @@ public class PhotoListController {
         albumTitle1.setText(album.getName());
         captionList.setMouseTransparent( true );
         captionList.setFocusTraversable( false );
+        photoList1.getSelectionModel().select(0);
     }
 
     private void display(List<Photo> photoList) {
@@ -104,7 +104,17 @@ public class PhotoListController {
             imgView.setFitWidth(100);
 
             storeImg.add(imgView);
-            obsList2.add(p.getCaption());
+            String h="";
+            for(Tag t : p.getTags()) {
+            	h+=t.getValue()+" ,";
+            }
+            if(h.equals("")) {
+            	obsList2.add("");
+            }
+            else{
+            	h=h.substring(0, h.length()-1);
+            	obsList2.add(p.getCaption()+" ,"+h);
+            }
         }
         photoList1.setItems(storeImg);
         captionList.setItems(obsList2);

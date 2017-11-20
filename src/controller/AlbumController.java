@@ -60,6 +60,7 @@ public class AlbumController {
 		updateDisplay();
 		u=new UserList();
 		u=UserList.read();
+		listAlbum.getSelectionModel().select(0);
 		stage.setOnCloseRequest( event -> {
     		try {
     			u.removeUser(currentUser.getName());
