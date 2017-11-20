@@ -118,8 +118,33 @@ public class SearchController {
 		   (startDate.getValue()!=null && startDate.getValue().isAfter(endDate.getValue()))){
 			error("Please enter valid date range");
 		}
+		if(obsList.isEmpty() && startDate.getValue()!=null && endDate.getValue()!=null) {
+			for(Album a:albums) {
+				ArrayList<Photo> photos = new ArrayList<Photo>();
+				photos=(ArrayList<Photo>) a.getPhotos();
+				for(Photo p:photos) {
+					ArrayList<Tag> tags2 = new ArrayList<Tag>();
+					tags2=(ArrayList<Tag>) p.getTags();
+					if(p.isWithinDateRange(startDate.getValue(), endDate.getValue())) {
+							boolean exists=false;
+							Photo insert=p.carbonCopy();
+							SerializableImage tempImage = new SerializableImage();
+							tempImage.setImage(p.getImage());
+							for (Photo p2 : temp.getPhotos()) {
+								if (tempImage.equals(p2.getSerializableImage())) {
+									exists=true;
+								}
+							}
+							if(exists==false) {
+								temp.addPhoto(insert);
+							}
+					}
+				}
+			}
+
+		}
+		
 		else if(startDate.getValue()==null && endDate.getValue()==null) {
-			
 			for(Album a:albums) {
 				ArrayList<Photo> photos = new ArrayList<Photo>();
 				photos=(ArrayList<Photo>) a.getPhotos();
