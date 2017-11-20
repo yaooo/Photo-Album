@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlbumController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlbumController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                          Album List" textAlignment="CENTER">
          <font>
@@ -26,7 +26,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="DeleteAlbum" layoutX="24.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="31.0" prefWidth="132.0" text="Delete Album" />
+                  <Button fx:id="DeleteAlbum" layoutX="24.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="31.0" prefWidth="132.0" text="Delete Album" />
                   <Button fx:id="RenameAlbum" layoutX="24.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleRenameButton" prefHeight="31.0" prefWidth="132.0" text="Rename Album" />
                   <Button fx:id="OpenAlbum" layoutX="23.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleOpenButton" prefHeight="31.0" prefWidth="132.0" text="Open Album" />
                   <Button fx:id="Exit" layoutX="23.0" layoutY="435.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="31.0" prefWidth="132.0" text="Exit" />
@@ -35,6 +35,7 @@
                         <Insets />
                      </opaqueInsets></Button>
                   <TextField fx:id="newAlbumText" layoutX="23.0" layoutY="43.0" prefHeight="31.0" prefWidth="132.0" promptText="New Album Name" />
+                  <Button fx:id="search" layoutX="23.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="32.0" prefWidth="132.0" text="Search" />
                </children>
             </AnchorPane>
         </items>

@@ -45,6 +45,8 @@ public class AlbumController {
 	@FXML
 	private Button Exit;
 	@FXML
+	private Button search;
+	@FXML
 	private Button CreateAlbum;
 	@FXML
 	private TextField newAlbumText;
@@ -149,6 +151,30 @@ public class AlbumController {
 		    }
 		
 	}
+	@FXML protected void handleSearchButton(ActionEvent event) throws ClassNotFoundException {
+		Parent parent;
+		 try {
+			 		u.removeUser(currentUser.getName());
+					u.addUser(currentUser);
+			 		u.write(u);
+		        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
+					parent = (Parent) loader.load();
+					        
+					SearchController ctrl = loader.getController();
+					Scene scene = new Scene(parent);
+								
+					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
+				                
+					ctrl.start(app_stage,currentUser);
+				             
+				    app_stage.setScene(scene);
+				    app_stage.show();  
+		        
+		 }catch (IOException e) {
+		    	e.printStackTrace();
+		    }
+	}
+
 	public void updateDisplay() {
 		obsList.clear();
 		for(Album a:albums) {

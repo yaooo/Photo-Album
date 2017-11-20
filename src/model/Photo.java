@@ -13,6 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 public class Photo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7182084870297668581L;
 	private SerializableImage image;
 	private String caption;
 	private List<Tag> tags;
@@ -101,6 +105,9 @@ public class Photo implements Serializable {
 		return true;
 	}
 	
+	public Calendar getCalender() {
+		return this.cal;
+	}
 	
 	public boolean isWithinDateRange(LocalDate fromDate, LocalDate toDate) {
 		LocalDate date = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -111,5 +118,13 @@ public class Photo implements Serializable {
 	
 	public List<Tag> getTags() {
 		return tags;
+	}
+	
+	public Photo carbonCopy() {
+		Photo copy = new Photo(this.getImage());
+		copy.tags=this.getTags();
+		copy.cal=this.getCalender();
+		copy.caption=this.getCaption();
+		return copy;
 	}
 }

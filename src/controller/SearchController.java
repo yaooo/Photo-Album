@@ -1,0 +1,124 @@
+package controller;
+import model.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.text.Text;
+import java.io.IOException;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.application.*;
+public class SearchController {
+	
+	@FXML
+	private Button add;
+	@FXML
+	private Button delete;
+	@FXML
+	private Button exit;
+	@FXML
+	private ListView cList;
+	@FXML
+	private TextField input;
+	
+	UserList u;
+	private List<Album> albums;
+	User currentUser;
+	private List<Tag> tags;
+	private ObservableList<String> obsList;
+	public void start(Stage stage , User username) throws ClassNotFoundException, IOException {
+		currentUser=username;
+		albums=new ArrayList<Album>();
+		albums=currentUser.getAlbums();
+		tags=new ArrayList<Tag>();
+		u=new UserList();
+		u=UserList.read();
+		obsList = FXCollections.observableArrayList();
+		
+	}
+	
+	@FXML public void handleAddButton(ActionEvent event) {
+		String s = input.getText();
+		if(s.equals("") || s==(null)) {
+			return;
+		}
+		String parts[]=s.split(":");
+		Tag t = new Tag(parts[0],parts[1]);
+		tags.add(t);
+		obsList.add(parts[0]+"="+parts[1]);
+		cList.setItems(obsList);
+		
+		
+	}
+	@FXML public void handleDeleteButton(ActionEvent event) {
+		String s =(String) cList.getSelectionModel().getSelectedItem();
+		String parts[]= s.split("=");
+		Tag delete=null;
+		for(Tag t:tags) {
+			if(t.getType().equals(parts[0]) && t.getValue().equals(parts[1])) {
+				obsList.remove(s);
+			}
+		}
+		tags.remove(delete);
+		cList.setItems(obsList);
+		
+		
+	}
+	@FXML public void handleExitButton(ActionEvent event) throws ClassNotFoundException, IOException {
+		Parent parent;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
+		parent = (Parent) loader.load();
+		        
+		AlbumController ctrl = loader.getController();
+		Scene scene = new Scene(parent);
+					
+		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
+	                
+		ctrl.start(app_stage , currentUser);
+	             
+	    app_stage.setScene(scene);
+	    app_stage.show();  
+    }
+	@FXML public void handleSearchButton(ActionEvent event) throws ClassNotFoundException,IOException{
+		for(Album a:albums) {
+			ArrayList<Photo> photos = new ArrayList<Photo>();
+			photos=(ArrayList<Photo>) a.getPhotos();
+			for(Photo p:photos) {
+				ArrayList<Tag> tags2 = new ArrayList<Tag>();
+				tags2=(ArrayList<Tag>) p.getTags();
+				for(Tag t:tags2) {
+					for(Tag c:tags) {
+						if(t.getType().equals(c.getType()) && t.getValue().equals(c.getValue())) {
+							System.out.println("Found valid Photo");
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}
