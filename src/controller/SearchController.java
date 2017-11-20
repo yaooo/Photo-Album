@@ -144,59 +144,77 @@ public class SearchController {
 
 		}
 		
-		else if(startDate.getValue()==null && endDate.getValue()==null) {
+		else if(!(obsList.isEmpty()) && startDate.getValue()==null && endDate.getValue()==null) {
+			boolean containsAllTags=true;
+			boolean containsTag=false;
 			for(Album a:albums) {
 				ArrayList<Photo> photos = new ArrayList<Photo>();
 				photos=(ArrayList<Photo>) a.getPhotos();
 				for(Photo p:photos) {
+					containsAllTags=true;
+					containsTag=false;
 					ArrayList<Tag> tags2 = new ArrayList<Tag>();
 					tags2=(ArrayList<Tag>) p.getTags();
-					for(Tag t:tags2) {
-						for(Tag c:tags) {
+					for(Tag c:tags) {
+						for(Tag t:tags2) {
 							if(t.getType().equals(c.getType()) && t.getValue().equals(c.getValue())) {
-								boolean exists=false;
-								Photo insert=p.carbonCopy();
-								SerializableImage tempImage = new SerializableImage();
-						        tempImage.setImage(p.getImage());
-						        for (Photo p2 : temp.getPhotos()) {
-						            if (tempImage.equals(p2.getSerializableImage())) {
-						                exists=true;
-						            }
-						        }
-						        if(exists==false) {
-						        	temp.addPhoto(insert);
-						        }
+								containsTag=true;
 							}
 						}
+						containsAllTags=containsAllTags && containsTag;
+						containsTag=false;
+					}
+					if(containsAllTags) {
+						boolean exists=false;
+						Photo insert=p.carbonCopy();
+						SerializableImage tempImage = new SerializableImage();
+				        tempImage.setImage(p.getImage());
+				        for (Photo p2 : temp.getPhotos()) {
+				            if (tempImage.equals(p2.getSerializableImage())) {
+				                exists=true;
+				            }
+				        }
+				        if(exists==false) {
+				        	temp.addPhoto(insert);
+				        }
 					}
 				}
 			}
 		}
 		else {
 			for(Album a:albums) {
+				boolean containsAllTags=true;
+				boolean containsTag=false;
 				ArrayList<Photo> photos = new ArrayList<Photo>();
 				photos=(ArrayList<Photo>) a.getPhotos();
 				for(Photo p:photos) {
-					ArrayList<Tag> tags2 = new ArrayList<Tag>();
-					tags2=(ArrayList<Tag>) p.getTags();
 					if(p.isWithinDateRange(startDate.getValue(), endDate.getValue())) {
-						for(Tag t:tags2) {
-							for(Tag c:tags) {
+						containsAllTags=true;
+						containsTag=false;
+						ArrayList<Tag> tags2 = new ArrayList<Tag>();
+						tags2=(ArrayList<Tag>) p.getTags();
+						for(Tag c:tags) {
+							for(Tag t:tags2) {
 								if(t.getType().equals(c.getType()) && t.getValue().equals(c.getValue())) {
-									boolean exists=false;
-									Photo insert=p.carbonCopy();
-									SerializableImage tempImage = new SerializableImage();
-							        tempImage.setImage(p.getImage());
-							        for (Photo p2 : temp.getPhotos()) {
-							            if (tempImage.equals(p2.getSerializableImage())) {
-							                exists=true;
-							            }
-							        }
-							        if(exists==false) {
-							        	temp.addPhoto(insert);
-							        }
+									containsTag=true;
 								}
 							}
+							containsAllTags=containsAllTags && containsTag;
+							containsTag=false;
+						}
+						if(containsAllTags){
+							boolean exists=false;
+							Photo insert=p.carbonCopy();
+							SerializableImage tempImage = new SerializableImage();
+					        tempImage.setImage(p.getImage());
+					        for (Photo p2 : temp.getPhotos()) {
+					            if (tempImage.equals(p2.getSerializableImage())) {
+					                exists=true;
+					            }
+					        }
+					        if(exists==false) {
+					        	temp.addPhoto(insert);
+					        }
 						}
 					}
 				}

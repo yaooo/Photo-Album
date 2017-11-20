@@ -89,7 +89,7 @@ public class LoginController{
 			    app_stage.show();  
 	        }
 	        else {
-	        	System.out.println("invalid Login!");
+	        	error("invalid Login!");
 	        }
         
         
@@ -99,6 +99,12 @@ public class LoginController{
 	    }
         	
     }
-    
+    private void error(String msg) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Input error");
+		alert.setContentText(msg);
+		alert.showAndWait();
+	}
 	
 }
