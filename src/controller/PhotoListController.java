@@ -285,7 +285,29 @@ public class PhotoListController {
 
     @FXML
     protected void handleSlideShowButton(ActionEvent event) throws IOException, ClassNotFoundException {
+        Parent parent;
+        if (photos == null)
+            return;
+        if (photos.size() == 0)
+            return;
+        int s = photoList1.getSelectionModel().getSelectedIndex();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/SlideShow.fxml"));
+            parent = (Parent) loader.load();
 
+            SlideShowController ctrl = loader.getController();
+            Scene scene = new Scene(parent);
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            ctrl.start(app_stage, currentUser, album);
+
+            app_stage.setScene(scene);
+            app_stage.show();
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
