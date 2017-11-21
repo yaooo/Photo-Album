@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.application.*;
 
-public class SearchController {
+public class SearchController { 
 	
 	@FXML
 	private Button add;
@@ -154,7 +154,7 @@ public class SearchController {
 								}
 							}
 							if(exists==false) {
-								temp.addPhoto(insert);
+								temp.addPhoto(p);
 							}
 					}
 				}
@@ -193,7 +193,7 @@ public class SearchController {
 				            }
 				        }
 				        if(!exists) {
-				        	temp.addPhoto(insert);
+				        	temp.addPhoto(p);
 				        }
 					}
 				}
@@ -231,7 +231,7 @@ public class SearchController {
 					            }
 					        }
 					        if(!exists) {
-					        	temp.addPhoto(insert);
+					        	temp.addPhoto(p);
 					        }
 						}
 					}

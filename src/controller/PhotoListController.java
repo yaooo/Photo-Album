@@ -104,6 +104,7 @@ public class PhotoListController {
             imgView.setPreserveRatio(true);
 
             imgView.setFitWidth(100);
+            imgView.setFitHeight(75);
 
             storeImg.add(imgView);
             String h="";
@@ -111,7 +112,7 @@ public class PhotoListController {
             	h+=t.getValue()+" ,";
             }
             if(h.equals("")) {
-            	obsList2.add("");
+            	obsList2.add(p.getCaption());
             }
             else{
             	h=h.substring(0, h.length()-1);
