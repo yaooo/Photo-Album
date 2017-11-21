@@ -145,7 +145,6 @@ public class SearchController {
 					tags2=(ArrayList<Tag>) p.getTags();
 					if(p.isWithinDateRange(startDate.getValue(), endDate.getValue())) {
 							boolean exists=false;
-							Photo insert=p.carbonCopy();
 							SerializableImage tempImage = new SerializableImage();
 							tempImage.setImage(p.getImage());
 							for (Photo p2 : temp.getPhotos()) {
@@ -184,7 +183,6 @@ public class SearchController {
 					}
 					if(containsAllTags) {
 						boolean exists=false;
-						Photo insert=p.carbonCopy();
 						SerializableImage tempImage = new SerializableImage();
 				        tempImage.setImage(p.getImage());
 				        for (Photo p2 : temp.getPhotos()) {
@@ -222,7 +220,6 @@ public class SearchController {
 						}
 						if(containsAllTags){
 							boolean exists=false;
-							Photo insert=p.carbonCopy();
 							SerializableImage tempImage = new SerializableImage();
 					        tempImage.setImage(p.getImage());
 					        for (Photo p2 : temp.getPhotos()) {
