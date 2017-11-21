@@ -84,6 +84,8 @@ public class PhotoListController {
         photoList1.getSelectionModel().select(0);
     }
 
+
+    //TODO Fix this method
     private void display(List<Photo> photoList) {
     	obsList2.clear();
         if (storeImg != null)
@@ -345,6 +347,8 @@ public class PhotoListController {
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(cap -> p.setCaption(cap));
         }
+
+        //TODO: Wrong call
         display(photos);
 
     }
