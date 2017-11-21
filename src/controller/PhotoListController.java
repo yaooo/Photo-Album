@@ -22,8 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -152,6 +150,7 @@ public class PhotoListController {
         tempImage.setImage(image);
         for (Photo p : album.getPhotos()) {
             if (tempImage.equals(p.getSerializableImage())) {
+            	error("Photo exsists in current album already!");
                 return;
             }
         }
@@ -165,7 +164,7 @@ public class PhotoListController {
                 if (tempImage.equals(p.getSerializableImage())) {
                     tempPhoto = p;
                     photoFound = true;
-                    System.out.println("Found the photo!");
+                    error("Photo exsists in another album currently");
                     break;
                 }
                 if (photoFound)
@@ -176,7 +175,8 @@ public class PhotoListController {
         //else, create a new photo object
         if (!photoFound)
             tempPhoto = new Photo(image);
-
+        
+        
         album.addPhoto(tempPhoto);
         obsList.add(tempPhoto);
         UserList.write(u);
@@ -415,4 +415,11 @@ public class PhotoListController {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+    private void error(String msg) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Input error");
+		alert.setContentText(msg);
+		alert.showAndWait();
+	}
 }
