@@ -79,6 +79,10 @@ public class TagListController {
             return;
 
         int s = listTag.getSelectionModel().getSelectedIndex();
+
+        if(isSelected(s))
+            return;
+
         currentPhoto.removeTag(s);
         tags = currentPhoto.getTags();
         display(tags);
@@ -95,7 +99,7 @@ public class TagListController {
 
         if (result.isPresent()) {
             if (result.get().indexOf(':') == -1 || result.get().indexOf(':') == 0) {
-                alert("Error", "Input invalid.", "Please follow the correct format");
+                alert("Error", "Input invalid.", "Please follow the correct format.");
                 return;
             }
 
@@ -108,12 +112,13 @@ public class TagListController {
 
     @FXML
     protected void handleEditButton(ActionEvent event) throws IOException, ClassNotFoundException {
-
-        if (tags.size() < 1) {
+        if (tags.size() < 1)
             return;
-        }
 
         int s = listTag.getSelectionModel().getSelectedIndex();
+
+        if(isSelected(s))
+            return;
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("New tag");
@@ -166,6 +171,14 @@ public class TagListController {
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    private boolean isSelected(int i){
+        if(i == -1) {
+            alert("Error", "Selection invalid.", "Please select an item in the list.");
+            return true;
+        }
+        return false;
     }
 
 }

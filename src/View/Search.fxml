@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchController">
    <children>
       <SplitPane dividerPositions="0.5548654244306418" prefHeight="591.0" prefWidth="485.0">
         <items>
@@ -25,8 +25,8 @@
                   <Button fx:id="delete" layoutX="32.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="25.0" prefWidth="149.0" text="Delete Search Criteria" />
                   <Button layoutX="41.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="25.0" prefWidth="130.0" text="Search" />
                   <Button fx:id="exit" layoutX="91.0" layoutY="406.0" mnemonicParsing="false" onAction="#handleExitButton" text="Exit" />
-                  <DatePicker fx:id="startDate" layoutX="21.0" layoutY="195.0" promptText="start date" />
-                  <DatePicker fx:id="endDate" layoutX="21.0" layoutY="240.0" promptText="end date" />
+                  <DatePicker fx:id="startDate" editable="false" layoutX="21.0" layoutY="195.0" promptText="start date" />
+                  <DatePicker fx:id="endDate" editable="false" layoutX="21.0" layoutY="240.0" promptText="end date" />
                   <Text layoutX="75.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range" />
                </children>
             </AnchorPane>

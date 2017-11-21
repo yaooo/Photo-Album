@@ -71,7 +71,9 @@ public class SearchController {
 	
 	@FXML public void handleAddButton(ActionEvent event) {
 		String s = input.getText();
-		if(s.equals("") || s==(null)) {
+		if(s == null)
+		    return;
+		if(s.equals("")) {
 			return;
 		}
 		String parts[]=s.split(":");
@@ -83,7 +85,18 @@ public class SearchController {
 		
 	}
 	@FXML public void handleDeleteButton(ActionEvent event) {
-		String s =(String) cList.getSelectionModel().getSelectedItem();
+		if(cList.getItems().size() == 0) {
+            alert("Error", "Invalid selection.", "The list is already empty.");
+            return;
+        }
+
+	    String s =(String) cList.getSelectionModel().getSelectedItem();
+
+		if(cList.getSelectionModel().getSelectedIndex() == -1){
+		    alert("Error", "Invalid selection.", "Please select an item to delete.");
+		    return;
+        }
+
 		String parts[]= s.split("=");
 		Tag delete=null;
 		for(Tag t:tags) {
@@ -112,8 +125,13 @@ public class SearchController {
 	    app_stage.show();  
     }
 	@FXML public void handleSearchButton(ActionEvent event) throws ClassNotFoundException,IOException{
-		Album temp = new Album("temp");
-		if((startDate.getValue()!=null && endDate.getValue()==null) || 
+        Album temp = new Album("temp");
+        if(cList.getItems().size() == 0 && (startDate.getValue() == null || endDate.getValue() == null)) {
+            alert("Error", "Miss search criteria.", "Please add the search criteria first.");
+            return;
+        }
+
+        if((startDate.getValue()!=null && endDate.getValue()==null) ||
 		   (startDate.getValue()==null && endDate.getValue()!=null) || 
 		   (startDate.getValue()!=null && startDate.getValue().isAfter(endDate.getValue()))){
 			error("Please enter valid date range");
@@ -174,7 +192,7 @@ public class SearchController {
 				                exists=true;
 				            }
 				        }
-				        if(exists==false) {
+				        if(!exists) {
 				        	temp.addPhoto(insert);
 				        }
 					}
@@ -212,7 +230,7 @@ public class SearchController {
 					                exists=true;
 					            }
 					        }
-					        if(exists==false) {
+					        if(!exists) {
 					        	temp.addPhoto(insert);
 					        }
 						}
@@ -244,5 +262,12 @@ public class SearchController {
 		alert.setContentText(msg);
 		alert.showAndWait();
 	}
-	
+
+    private void alert(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 }
