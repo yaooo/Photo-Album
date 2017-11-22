@@ -17,6 +17,7 @@ import model.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
 /**
  * @author Sagar Patel
  * @author Yao Shi
@@ -25,7 +26,7 @@ import java.util.Optional;
 public class TagListController {
 
     @FXML
-    ListView listTag;
+    private ListView listTag;
 
     private ObservableList<String> obsList;
     private List<Tag> tags;
@@ -34,6 +35,15 @@ public class TagListController {
     private User currentUser;
     private Album currentAlbum;
 
+    /**
+     * Start
+     *
+     * @param username name
+     * @param a        album
+     * @param p        photo
+     * @throws ClassNotFoundException not found
+     * @throws IOException            exception
+     */
     public void start(User username, Album a, Photo p) throws ClassNotFoundException, IOException {
         u = new UserList();
         u = UserList.read();
@@ -45,6 +55,11 @@ public class TagListController {
         display(tags);
     }
 
+    /**
+     * Update the display
+     *
+     * @param tags tag list
+     */
     private void display(List<Tag> tags) {
         if (obsList != null)
             obsList.clear();
@@ -62,14 +77,17 @@ public class TagListController {
         listTag.setItems(obsList);
     }
 
+    /**
+     * Handle the delete button
+     */
     @FXML
     protected void handleDeleteButton(ActionEvent event) throws IOException, ClassNotFoundException {
-        if(tags.size() < 1)
+        if (tags.size() < 1)
             return;
 
         int s = listTag.getSelectionModel().getSelectedIndex();
 
-        if(isSelected(s))
+        if (isSelected(s))
             return;
 
         currentPhoto.removeTag(s);
@@ -78,6 +96,9 @@ public class TagListController {
 
     }
 
+    /**
+     * Handle the add button
+     */
     @FXML
     protected void handleAddButton(ActionEvent event) throws IOException, ClassNotFoundException {
         TextInputDialog dialog = new TextInputDialog();
@@ -93,7 +114,7 @@ public class TagListController {
             }
 
             String parts[] = result.get().split(":");
-            if(duplicatedTag(parts[0], parts[1])){
+            if (duplicatedTag(parts[0], parts[1])) {
                 alert("Error", "Duplicated tag error.", "Please try a different tag.");
                 return;
             }
@@ -103,6 +124,9 @@ public class TagListController {
         }
     }
 
+    /**
+     * Handle the edit button
+     */
     @FXML
     protected void handleEditButton(ActionEvent event) throws IOException, ClassNotFoundException {
         if (tags.size() < 1)
@@ -110,7 +134,7 @@ public class TagListController {
 
         int s = listTag.getSelectionModel().getSelectedIndex();
 
-        if(isSelected(s))
+        if (isSelected(s))
             return;
 
         TextInputDialog dialog = new TextInputDialog();
@@ -124,7 +148,7 @@ public class TagListController {
                 return;
             }
             String parts[] = result.get().split(":");
-            if(duplicatedTag(parts[0], parts[1])){
+            if (duplicatedTag(parts[0], parts[1])) {
                 alert("Error", "Duplicated tag error.", "Please try again.");
                 return;
             }
@@ -135,6 +159,9 @@ public class TagListController {
 
     }
 
+    /**
+     * Handle the exit button
+     */
     @FXML
     protected void handleExitButton(ActionEvent event) throws IOException, ClassNotFoundException {
         Parent parent;
@@ -162,6 +189,13 @@ public class TagListController {
     }
 
 
+    /**
+     * Alert helper function
+     *
+     * @param title       title
+     * @param headerText  header
+     * @param contentText content
+     */
     private void alert(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -170,19 +204,32 @@ public class TagListController {
         alert.showAndWait();
     }
 
-    private boolean isSelected(int i){
-        if(i == -1) {
+    /**
+     * If the item is selected
+     *
+     * @param i index
+     * @return If it is selected
+     */
+    private boolean isSelected(int i) {
+        if (i == -1) {
             alert("Error", "Selection invalid.", "Please select an item in the list.");
             return true;
         }
         return false;
     }
 
-    private boolean duplicatedTag(String type, String value){
-        for(Tag t : tags){
+    /**
+     * If the tag is duplicated with the input
+     *
+     * @param type  type
+     * @param value value
+     * @return if the tag is duplicated
+     */
+    private boolean duplicatedTag(String type, String value) {
+        for (Tag t : tags) {
             String name_test = t.getType();
             String value_test = t.getValue();
-            if(name_test.equals(type) && value_test.equals(value)){
+            if (name_test.equals(type) && value_test.equals(value)) {
                 return true;
             }
         }

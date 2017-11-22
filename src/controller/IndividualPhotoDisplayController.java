@@ -19,6 +19,7 @@ import model.Tag;
 import model.User;
 
 import java.io.IOException;
+
 /**
  * @author Sagar Patel
  * @author Yao Shi
@@ -33,9 +34,6 @@ public class IndividualPhotoDisplayController {
     @FXML
     private ListView IndividualTagList;
 
-//    @FXML
-//    private Button IndividualDone;
-
     @FXML
     private TextArea IndividualCaption;
 
@@ -46,27 +44,45 @@ public class IndividualPhotoDisplayController {
     private Album album;
     private Photo currentPhoto;
     private ObservableList<String> obsList;
+
+    /**
+     * Start
+     *
+     * @param Stage    stage
+     * @param photo    photo
+     * @param username name
+     * @param a        album
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public void start(Stage Stage, Photo photo, User username, Album a) throws ClassNotFoundException, IOException {
 //        PhotoDisplay = new ImageView();
         album = a;
         currentUsername = username;
         currentPhoto = photo;
         PhotoDisplay.setImage(photo.getImage());
-        obsList = FXCollections.observableArrayList();  
+        obsList = FXCollections.observableArrayList();
         DisplayTags();
         DisplayCaption();
         DisplayDateTime();
     }
 
-    private void DisplayTags(){
-    	obsList.clear();
-    	for(Tag t:currentPhoto.getTags()) {
-    		obsList.add(t.toString());
-    	}
-    	IndividualTagList.setItems(obsList);
+    /**
+     * Display tags
+     */
+    private void DisplayTags() {
+        obsList.clear();
+        for (Tag t : currentPhoto.getTags()) {
+            obsList.add(t.toString());
+        }
+        IndividualTagList.setItems(obsList);
     }
 
-    private void DisplayCaption(){
+
+    /**
+     * Display caption
+     */
+    private void DisplayCaption() {
         String c = currentPhoto.getCaption();
         IndividualCaption.setEditable(false);
 
@@ -75,14 +91,20 @@ public class IndividualPhotoDisplayController {
         IndividualCaption.setText(c);
     }
 
-    private void DisplayDateTime(){
+    /**
+     * Display date and time
+     */
+    private void DisplayDateTime() {
         String time = currentPhoto.getDate();
         DateOfPhoto.setText(time);
     }
 
+    /**
+     * Handle the done button
+     */
     @FXML
-    protected void handleDoneButton(ActionEvent event) throws IOException,  ClassNotFoundException {
-       //todo: NEED TO TEST IT
+    protected void handleDoneButton(ActionEvent event) throws IOException, ClassNotFoundException {
+        //todo: NEED TO TEST IT
         Parent parent;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/PhotoList.fxml"));
@@ -93,7 +115,7 @@ public class IndividualPhotoDisplayController {
 
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            ctrl.start(app_stage,currentUsername,album);
+            ctrl.start(app_stage, currentUsername, album);
 
             app_stage.setScene(scene);
             app_stage.show();

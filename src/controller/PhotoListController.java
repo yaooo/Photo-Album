@@ -33,20 +33,6 @@ import java.util.Optional;
 public class PhotoListController {
     @FXML
     private Text albumTitle1;
-//    @FXML
-//    private Button copyPhoto1;
-//    @FXML
-//    private Button movePhoto1;
-//    @FXML
-//    private Button addPhoto1, removePhoto1;
-//    @FXML
-//    private Button renamePhoto1;
-//    @FXML
-//    private Button photoTag1;
-//    @FXML
-//    private Button slideShow1, displayPhoto1;
-//    @FXML
-//    private Button exit1;
     @FXML
     private ListView photoList1;
     @FXML 
@@ -61,6 +47,14 @@ public class PhotoListController {
     private User currentUser;
     private UserList u;
 
+    /**
+     * Start
+     * @param Stage stage
+     * @param username name
+     * @param a album
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public void start(Stage Stage, User username, Album a) throws ClassNotFoundException, IOException {
         u = new UserList();
         u = UserList.read();
@@ -80,7 +74,10 @@ public class PhotoListController {
     }
 
 
-    //TODO Fix this method
+    /**
+     * Display the photo list
+     * @param photoList photo list
+     */
     private void display(List<Photo> photoList) {
     	obsList2.clear();
         if (storeImg != null)
@@ -120,14 +117,19 @@ public class PhotoListController {
             photoList1.getSelectionModel().select(0);
     }
 
-
+    /**
+     * Handle the add button
+     */
     @FXML
     protected void handleAddButton(ActionEvent event) throws IOException {
         choosePhoto(event);
     }
 
+    /**
+     * Help to choose photo
+     */
     @FXML
-    protected void choosePhoto(ActionEvent event) throws IOException {
+    private void choosePhoto(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
@@ -183,6 +185,9 @@ public class PhotoListController {
 
     }
 
+    /**
+     * Handle the exit button
+     */
     @FXML
     protected void handleExitButton(ActionEvent event) throws IOException, ClassNotFoundException {
         Parent parent;
@@ -208,6 +213,9 @@ public class PhotoListController {
         }
     }
 
+    /**
+     * Handle the Remove button
+     */
     @FXML
     protected void handleRemoveButton(ActionEvent event) throws IOException, ClassNotFoundException {
         if (photos == null)
@@ -234,6 +242,9 @@ public class PhotoListController {
         display(photos);
     }
 
+    /**
+     * Handle the copyto button
+     */
     @FXML
     protected void handleCopyToButton(ActionEvent event) throws IOException, ClassNotFoundException {
         if (photos == null)
@@ -271,6 +282,9 @@ public class PhotoListController {
         }
     }
 
+    /**
+     * Handle the moveto button
+     */
     @FXML
     protected void handleMoveButton(ActionEvent event) throws IOException, ClassNotFoundException {
         if (photos == null)
@@ -308,6 +322,9 @@ public class PhotoListController {
         }
     }
 
+    /**
+     * Handle the slideshow button
+     */
     @FXML
     protected void handleSlideShowButton(ActionEvent event) throws IOException, ClassNotFoundException {
         Parent parent;
@@ -335,6 +352,9 @@ public class PhotoListController {
         }
     }
 
+    /**
+     * Handle the finish button
+     */
     @FXML
     protected void handleRecaptionButton(ActionEvent event) throws ClassNotFoundException {
     	if (photos == null)
@@ -359,6 +379,12 @@ public class PhotoListController {
 
     }
 
+    /**
+     * Handle tag button
+     * @param event event
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @FXML
     protected void handleTagButton(ActionEvent event) throws IOException, ClassNotFoundException {
     	Parent parent;
@@ -396,6 +422,12 @@ public class PhotoListController {
     }
 
 
+    /**
+     * Handle display button
+     * @param event event
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @FXML
     protected void handleDisplayButton(ActionEvent event) throws IOException, ClassNotFoundException {
         Parent parent;
@@ -427,6 +459,12 @@ public class PhotoListController {
         }
     }
 
+    /**
+     * Alert
+     * @param title title
+     * @param headerText header
+     * @param contentText content
+     */
     private void alert(String title, String headerText, String contentText) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);
@@ -434,6 +472,11 @@ public class PhotoListController {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+
+    /**
+     * Error
+     * @param msg message
+     */
     private void error(String msg) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");

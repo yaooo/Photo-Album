@@ -17,93 +17,114 @@ import model.User;
 import model.UserList;
 
 import java.io.IOException;
+
 /**
  * @author Sagar Patel
  * @author Yao Shi
  * @version 1.0
  */
 public class AdminListController {
-//	@FXML
-//	private Button Create;
-//	@FXML
-//	private Button Delete;
-//	@FXML
-//	private Button Exit;
-	@FXML
-	private ListView List;
-	@FXML
-	private TextField inputField;
-	
-	private UserList u;
-	private ObservableList<String> obsList = FXCollections.observableArrayList();    
-	public void start(Stage stage) throws IOException,ClassNotFoundException {
-		u=new UserList();
-		u=UserList.read();
-		updateDisplay();
-	      // select the first item
-	    List.getSelectionModel().select(0);
+    @FXML
+    private ListView List;
+    @FXML
+    private TextField inputField;
 
-	     
-	}
-	@FXML protected void handleExitButton(ActionEvent event) throws ClassNotFoundException{
-		Parent parent;
-		
-		 try {
-			 		u.write(u);
-			 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
-					parent = (Parent) loader.load();
-					        
-					LoginController ctrl = loader.getController();
-					Scene scene = new Scene(parent);
-								
-					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	
-				                
-					ctrl.start(app_stage);
-				             
-				    app_stage.setScene(scene);
-				    app_stage.show();  
-		        
-		 }catch (IOException e) {
-		    	e.printStackTrace();
-		    }
-	}
+    private UserList u;
+    private ObservableList<String> obsList = FXCollections.observableArrayList();
 
-	@FXML protected void handleCreateButton(ActionEvent event) throws ClassNotFoundException{
-		String newUser=inputField.getText();
-		
-		if(newUser==null || newUser.equals("")) {
-			error("Please enter a valid username!");
-		}
-		else if (obsList.contains(newUser)) {
-			error("User already exists!");
-		}
-		else {
-			User insert= new User(newUser);
-			u.addUser(insert);
-			updateDisplay();
+    /**
+     * Start
+     *
+     * @param stage stage
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void start(Stage stage) throws IOException, ClassNotFoundException {
+        u = new UserList();
+        u = UserList.read();
+        updateDisplay();
+        // select the first item
+        List.getSelectionModel().select(0);
+
+
+    }
+
+    /**
+     * Handle the exit button
+     */
+    @FXML
+    protected void handleExitButton(ActionEvent event) throws ClassNotFoundException {
+        Parent parent;
+
+        try {
+            u.write(u);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
+            parent = (Parent) loader.load();
+
+            LoginController ctrl = loader.getController();
+            Scene scene = new Scene(parent);
+
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            ctrl.start(app_stage);
+
+            app_stage.setScene(scene);
+            app_stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handle the create button
+     */
+    @FXML
+    protected void handleCreateButton(ActionEvent event) throws ClassNotFoundException {
+        String newUser = inputField.getText();
+
+        if (newUser == null || newUser.equals("")) {
+            error("Please enter a valid username!");
+        } else if (obsList.contains(newUser)) {
+            error("User already exists!");
+        } else {
+            User insert = new User(newUser);
+            u.addUser(insert);
+            updateDisplay();
             inputField.clear();
-		}
+        }
 
-	}
-	
-	@FXML protected void handleDeleteButton(ActionEvent event) throws ClassNotFoundException{
-		String s =(String) List.getSelectionModel().getSelectedItem();
-		u.removeUser(s);
-		updateDisplay();
-	}
-	
-	public void updateDisplay() {
-		obsList.clear();
-		for(User a : u.getUserList()) {
-			obsList.add(a.getName());
-		}
-		List.setItems(obsList);
-	}
-	private void error(String msg) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Input error");
-		alert.setContentText(msg);
-		alert.showAndWait();
-	}
+    }
+
+    /**
+     * Handle the delete button
+     */
+    @FXML
+    protected void handleDeleteButton(ActionEvent event) throws ClassNotFoundException {
+        String s = (String) List.getSelectionModel().getSelectedItem();
+        u.removeUser(s);
+        updateDisplay();
+    }
+
+    /**
+     * Update the display
+     */
+    private void updateDisplay() {
+        obsList.clear();
+        for (User a : u.getUserList()) {
+            obsList.add(a.getName());
+        }
+        List.setItems(obsList);
+    }
+
+    /**
+     * Error
+     */
+    private void error(String msg) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Input error");
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }

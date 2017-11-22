@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 /**
  * @author Sagar Patel
  * @author Yao Shi
@@ -29,32 +30,48 @@ import java.util.Optional;
 public class SearchResultsController {
     @FXML
     private ListView photoList1;
-    @FXML 
+    @FXML
     private ListView captionList;
-    
+
     private ObservableList<ImageView> storeImg;
     private ObservableList<Photo> obsList;
     private List<Photo> photos;
     private ObservableList<String> obsList2;
-    Album temp ;
-    UserList u;
-    User currentUser;
-    public void start(Stage Stage, User username,Album results) throws ClassNotFoundException, IOException {
-    	currentUser=username;
-    	temp=results;
-    	u=new UserList();
-    	u=UserList.read();
-    	photos = new ArrayList<Photo>();
-    	photos=results.getPhotos();
-    	storeImg = FXCollections.observableArrayList();
-    	obsList = FXCollections.observableArrayList(photos);
-    	obsList2 = FXCollections.observableArrayList();
-    	display(photos);
-    	captionList.setMouseTransparent( true );
-        captionList.setFocusTraversable( false );
+    private Album temp;
+    private UserList u;
+    private User currentUser;
+
+    /**
+     * Start
+     *
+     * @param Stage    stage
+     * @param username name
+     * @param results  album
+     * @throws ClassNotFoundException not found
+     * @throws IOException            exception
+     */
+    public void start(Stage Stage, User username, Album results) throws ClassNotFoundException, IOException {
+        currentUser = username;
+        temp = results;
+        u = new UserList();
+        u = UserList.read();
+        photos = new ArrayList<Photo>();
+        photos = results.getPhotos();
+        storeImg = FXCollections.observableArrayList();
+        obsList = FXCollections.observableArrayList(photos);
+        obsList2 = FXCollections.observableArrayList();
+        display(photos);
+        captionList.setMouseTransparent(true);
+        captionList.setFocusTraversable(false);
     }
+
+    /**
+     * Update the display of the photo list
+     *
+     * @param photoList photo list
+     */
     private void display(List<Photo> photoList) {
-    	obsList2.clear();
+        obsList2.clear();
         if (storeImg != null)
             storeImg.clear();
 
@@ -73,65 +90,78 @@ public class SearchResultsController {
             imgView.setFitWidth(100);
 
             storeImg.add(imgView);
-            String h="";
-            for(Tag t : p.getTags()) {
-            	h+=t.getValue()+" ,";
+            String h = "";
+            for (Tag t : p.getTags()) {
+                h += t.getValue() + " ,";
             }
-            if(h.equals("")) {
-            	obsList2.add("");
-            }
-            else{
-            	h=h.substring(0, h.length()-1);
-            	obsList2.add(p.getCaption()+" ,"+h);
+            if (h.equals("")) {
+                obsList2.add("");
+            } else {
+                h = h.substring(0, h.length() - 1);
+                obsList2.add(p.getCaption() + " ," + h);
             }
         }
         photoList1.setItems(storeImg);
         captionList.setItems(obsList2);
     }
 
-    @FXML protected void handleExitButton(ActionEvent event) throws ClassNotFoundException,IOException {
-    	Parent parent;
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
-    	parent = (Parent) loader.load();
-    	AlbumController ctrl = loader.getController();
-		Scene scene = new Scene(parent);				
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	                
-		ctrl.start(app_stage , u.getUserByUsername(currentUser.getName()));
-		app_stage.setScene(scene);
-		app_stage.show();  
-        
+
+    /**
+     * Handle the exit button
+     */
+    @FXML
+    protected void handleExitButton(ActionEvent event) throws ClassNotFoundException, IOException {
+        Parent parent;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
+        parent = (Parent) loader.load();
+        AlbumController ctrl = loader.getController();
+        Scene scene = new Scene(parent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ctrl.start(app_stage, u.getUserByUsername(currentUser.getName()));
+        app_stage.setScene(scene);
+        app_stage.show();
+
     }
-    @FXML protected void handleCreateButton(ActionEvent event) throws ClassNotFoundException,IOException {
-    	TextInputDialog dialog = new TextInputDialog();
+
+    /**
+     * Handle the create button
+     */
+    @FXML
+    protected void handleCreateButton(ActionEvent event) throws ClassNotFoundException, IOException {
+        TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("New Album Title");
         dialog.setHeaderText("Name:");
 
         Optional<String> result = dialog.showAndWait();
-        if(result.get().equals("")|| result.get()==null) {
-        	error("Please enter a valid name");
-        	return;
+        if (result.get().equals("") || result.get() == null) {
+            error("Please enter a valid name");
+            return;
         }
         temp.setName(result.get());
-    	currentUser.addAlbum(temp);
-    	u.removeUser(currentUser.getName());
-    	u.addUser(currentUser);
-    	Parent parent;
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
-    	parent = (Parent) loader.load();
-    	AlbumController ctrl = loader.getController();
-		Scene scene = new Scene(parent);				
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();	                
-		ctrl.start(app_stage , u.getUserByUsername(currentUser.getName()));
-		app_stage.setScene(scene);
-		app_stage.show();  
-    	
-    	
+        currentUser.addAlbum(temp);
+        u.removeUser(currentUser.getName());
+        u.addUser(currentUser);
+        Parent parent;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumList.fxml"));
+        parent = (Parent) loader.load();
+        AlbumController ctrl = loader.getController();
+        Scene scene = new Scene(parent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ctrl.start(app_stage, u.getUserByUsername(currentUser.getName()));
+        app_stage.setScene(scene);
+        app_stage.show();
     }
+
+    /**
+     * Error alert
+     *
+     * @param msg message
+     */
     private void error(String msg) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Input error");
-		alert.setContentText(msg);
-		alert.showAndWait();
-	}
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Input error");
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
 }
