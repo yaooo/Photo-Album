@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminListController">
    <children>
-      <Button fx:id="Create" layoutX="224.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleCreateButton" text="Create User" />
-      <Button fx:id="Delete" layoutX="224.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete User" />
-      <ListView fx:id="List" layoutX="14.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="Exit" layoutX="224.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="25.0" prefWidth="78.0" text="Exit" />
-      <TextField fx:id="inputField" layoutX="88.0" layoutY="255.0" promptText="New User" />
+      <Button fx:id="Create" layoutX="201.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleCreateButton" text="Create User" />
+      <Button fx:id="Delete" layoutX="201.0" layoutY="163.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete User" textAlignment="CENTER" />
+      <ListView fx:id="List" layoutX="14.0" layoutY="36.0" prefHeight="211.0" prefWidth="155.0" />
+      <Button fx:id="Exit" layoutX="122.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="31.0" prefWidth="82.0" text="Exit" textAlignment="CENTER" />
+      <TextField fx:id="inputField" layoutX="195.0" layoutY="53.0" prefHeight="31.0" prefWidth="110.0" promptText="New User" />
    </children>
 </AnchorPane>
