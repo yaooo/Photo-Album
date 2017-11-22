@@ -13,8 +13,8 @@ import java.io.IOException;
  * @author Yao Shi
  * @version 1.0
  */
-public class Main extends Application {
-    private Stage mainStage;
+public class Photos extends Application {
+	private Stage mainStage;
 
     @Override
     public void start(Stage stage) {
@@ -39,4 +39,5 @@ public class Main extends Application {
         launch(args);
 
     }
+
 }
