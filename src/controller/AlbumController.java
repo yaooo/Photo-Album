@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Album;
 import model.User;
@@ -30,9 +31,11 @@ import java.util.Optional;
  */
 public class AlbumController {
     @FXML
-    private ListView listAlbum;
+    private ListView listAlbum, numPhoto;
 
     private ObservableList<String> obsList = FXCollections.observableArrayList();
+    private ObservableList<String> numOfPhotos = FXCollections.observableArrayList();
+
     private User currentUser;
     private List<Album> albums;
     private UserList u;
@@ -53,6 +56,10 @@ public class AlbumController {
         u = new UserList();
         u = UserList.read();
         listAlbum.getSelectionModel().select(0);
+
+        numPhoto.setMouseTransparent( true );
+        numPhoto.setFocusTraversable( false );
+
         stage.setOnCloseRequest(event -> {
             try {
                 u.removeUser(currentUser.getName());
@@ -120,6 +127,7 @@ public class AlbumController {
         }
         currentUser.addAlbum(s);
         albums = currentUser.getAlbums();
+
         updateDisplay();
     }
 
@@ -147,7 +155,10 @@ public class AlbumController {
             String s = (String) listAlbum.getSelectionModel().getSelectedItem();
             String parts[] = s.split(" , ");
             Album delete = currentUser.getAlbumByName(parts[0]);
+
             currentUser.removeAlbum(delete);
+            numOfPhotos.remove(index);
+
             albums = currentUser.getAlbums();
             updateDisplay();
         }
@@ -265,12 +276,16 @@ public class AlbumController {
      */
     public void updateDisplay() {
         obsList.clear();
+        numOfPhotos.clear();
         for (Album a : albums) {
             obsList.add(a.getName()+" , "+ a.getDateRange());
+            numOfPhotos.add(a.getCount() + " photo(s)");
         }
         listAlbum.setItems(obsList);
-        if (albums.size() > 0)
+        numPhoto.setItems(numOfPhotos);
+        if (albums.size() > 0) {
             listAlbum.getSelectionModel().select(0);
+        }
     }
 
     /**
