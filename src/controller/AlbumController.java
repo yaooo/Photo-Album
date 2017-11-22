@@ -128,7 +128,8 @@ public class AlbumController {
     @FXML
     protected void handleDeleteButton(ActionEvent event) {
         String s = (String) listAlbum.getSelectionModel().getSelectedItem();
-        Album delete = currentUser.getAlbumByName(s);
+        String parts[]=s.split(" , ");
+        Album delete = currentUser.getAlbumByName(parts[0]);
         currentUser.removeAlbum(delete);
         albums = currentUser.getAlbums();
         updateDisplay();
@@ -146,7 +147,9 @@ public class AlbumController {
             alert("Error", "Invalid Selection.", "Please select an item.");
             return;
         }
-        TextInputDialog dialog = new TextInputDialog((String) listAlbum.getSelectionModel().getSelectedItem());
+        String a = (String) listAlbum.getSelectionModel().getSelectedItem();
+        String parts[]=a.split(" , ");
+        TextInputDialog dialog = new TextInputDialog(parts[0]);
         dialog.setTitle("Rename the Album");
         dialog.setHeaderText("Rename?");
         dialog.setContentText("Please the name:");
@@ -166,7 +169,7 @@ public class AlbumController {
             alert("Error", "Duplicated Name", "Please try again.");
             return;
         }
-        currentUser.getAlbumByName((String) listAlbum.getSelectionModel().getSelectedItem()).setName(s);
+        currentUser.getAlbumByName(parts[0]).setName(s);
         updateDisplay();
     }
 
@@ -190,7 +193,8 @@ public class AlbumController {
             u.addUser(currentUser);
             u.write(u);
             String s = (String) listAlbum.getSelectionModel().getSelectedItem();
-            Album a = currentUser.getAlbumByName(s);
+            String parts[]=s.split(" , ");
+            Album a = currentUser.getAlbumByName(parts[0]);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/PhotoList.fxml"));
             parent = (Parent) loader.load();
 
@@ -244,7 +248,7 @@ public class AlbumController {
     public void updateDisplay() {
         obsList.clear();
         for (Album a : albums) {
-            obsList.add(a.getName());
+            obsList.add(a.getName()+" , "+ a.getDateRange());
         }
         listAlbum.setItems(obsList);
         if (albums.size() > 0)
