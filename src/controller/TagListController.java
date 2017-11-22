@@ -23,16 +23,7 @@ import java.util.Optional;
  * @version 1.0
  */
 public class TagListController {
-//    @FXML
-//    Text phototNameTag;
-//    @FXML
-//    private Button addTag;
-//    @FXML
-//    private Button deleteTag;
-//    @FXML
-//    private Button editTag;
-//    @FXML
-//    private Button doneTag;
+
     @FXML
     ListView listTag;
 
@@ -102,6 +93,10 @@ public class TagListController {
             }
 
             String parts[] = result.get().split(":");
+            if(duplicatedTag(parts[0], parts[1])){
+                alert("Error", "Duplicated tag error.", "Please try a different tag.");
+                return;
+            }
             currentPhoto.addTag(parts[0], parts[1]);
             tags = currentPhoto.getTags();
             display(tags);
@@ -129,6 +124,10 @@ public class TagListController {
                 return;
             }
             String parts[] = result.get().split(":");
+            if(duplicatedTag(parts[0], parts[1])){
+                alert("Error", "Duplicated tag error.", "Please try again.");
+                return;
+            }
             currentPhoto.editTag(s, parts[0], parts[1]);
             tags = currentPhoto.getTags();
             display(tags);
@@ -175,6 +174,17 @@ public class TagListController {
         if(i == -1) {
             alert("Error", "Selection invalid.", "Please select an item in the list.");
             return true;
+        }
+        return false;
+    }
+
+    private boolean duplicatedTag(String type, String value){
+        for(Tag t : tags){
+            String name_test = t.getType();
+            String value_test = t.getValue();
+            if(name_test.equals(type) && value_test.equals(value)){
+                return true;
+            }
         }
         return false;
     }
