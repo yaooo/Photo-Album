@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
@@ -127,12 +128,29 @@ public class AlbumController {
      */
     @FXML
     protected void handleDeleteButton(ActionEvent event) {
-        String s = (String) listAlbum.getSelectionModel().getSelectedItem();
-        String parts[]=s.split(" , ");
-        Album delete = currentUser.getAlbumByName(parts[0]);
-        currentUser.removeAlbum(delete);
-        albums = currentUser.getAlbums();
-        updateDisplay();
+        int index = listAlbum.getSelectionModel().getSelectedIndex();
+        if (albums.size() < 1)
+            return;
+        if (index == -1) {
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirmation");
+        alert.setContentText("Are you sure to delete it?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+
+            String s = (String) listAlbum.getSelectionModel().getSelectedItem();
+            String parts[] = s.split(" , ");
+            Album delete = currentUser.getAlbumByName(parts[0]);
+            currentUser.removeAlbum(delete);
+            albums = currentUser.getAlbums();
+            updateDisplay();
+        }
     }
 
     /**
