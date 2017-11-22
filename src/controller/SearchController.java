@@ -72,7 +72,18 @@ public class SearchController {
         if (s.equals("")) {
             return;
         }
+
+        if (!s.contains(":")){
+            alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
+            return;
+        }
         String parts[] = s.split(":");
+        if(parts.length != 2){
+            alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
+            return;
+        }
+
+
         Tag t = new Tag(parts[0], parts[1]);
         tags.add(t);
         obsList.add(parts[0] + "=" + parts[1]);
