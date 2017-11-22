@@ -67,9 +67,12 @@ public class SearchController {
     @FXML
     public void handleAddButton(ActionEvent event) {
         String s = input.getText();
-        if (s == null)
+        if (s == null) {
+            alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
             return;
+        }
         if (s.equals("")) {
+            alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
             return;
         }
 
@@ -77,6 +80,16 @@ public class SearchController {
             alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
             return;
         }
+
+        String temp = s;
+        int count = s.length() - temp.replace(":", "").length();
+
+        if (count != 1){
+            alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
+            return;
+        }
+
+
         String parts[] = s.split(":");
         if(parts.length != 2){
             alert("Error", "Input Format Error.", "The input format should be \"Type:Value\". \nFor example, \"Person,stock\".");
