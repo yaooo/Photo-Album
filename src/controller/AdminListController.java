@@ -17,6 +17,11 @@ import model.User;
 import model.UserList;
 
 import java.io.IOException;
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class AdminListController {
 //	@FXML
 //	private Button Create;

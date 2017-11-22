@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class Album implements Serializable {
 	private String name;
 	private List<Photo> photos;

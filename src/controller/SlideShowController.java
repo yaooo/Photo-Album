@@ -14,13 +14,14 @@ import model.User;
 
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 
 public class SlideShowController {
 
-
-//    @FXML
-//    private Button finish, previous, next;
     @FXML
     private ImageView displaySlideShow;
 

@@ -21,9 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class SearchResultsController {
-//    @FXML
-//    private Button createButton;
     @FXML
     private ListView photoList1;
     @FXML 

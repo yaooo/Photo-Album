@@ -7,8 +7,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class Main extends Application {
 	private Stage mainStage;
 	@Override

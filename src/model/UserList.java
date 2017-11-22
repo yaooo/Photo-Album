@@ -8,7 +8,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class UserList implements Serializable {
 	private static final long serialVersionUID = -6450606409568802896L;
 	public static final String storeDir = "dat";

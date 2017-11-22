@@ -14,7 +14,11 @@ import javafx.stage.Stage;
 import model.UserList;
 
 import java.io.IOException;
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class LoginController{
 //	@FXML
 //	private Button loginButton;

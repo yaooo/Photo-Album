@@ -5,7 +5,11 @@ import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class User implements Serializable {
 	private static final long serialVersionUID = -5880859658114087536L;
 	private String username;

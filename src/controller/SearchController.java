@@ -19,15 +19,13 @@ import model.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class SearchController { 
-	
-//	@FXML
-//	private Button add;
-//	@FXML
-//	private Button delete;
-//	@FXML
-//	private Button exit;
+
 	@FXML
 	private ListView cList;
 	@FXML

@@ -12,10 +12,13 @@ import java.util.Set;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
+/**
+ * @author Sagar Patel
+ * @author Yao Shi
+ * @version 1.0
+ */
 public class Photo implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 7182084870297668581L;
 	private SerializableImage image;
 	private String caption;
