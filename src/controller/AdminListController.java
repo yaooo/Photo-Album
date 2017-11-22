@@ -1,49 +1,35 @@
 package controller;
-import model.*;
-import java.io.*;
-import java.util.*;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.text.Text;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.application.*;
+import model.User;
+import model.UserList;
+
+import java.io.IOException;
 public class AdminListController {
-	@FXML
-	private Button Create;
-	@FXML
-	private Button Delete;
-	@FXML
-	private Button Exit;
+//	@FXML
+//	private Button Create;
+//	@FXML
+//	private Button Delete;
+//	@FXML
+//	private Button Exit;
 	@FXML
 	private ListView List;
 	@FXML
 	private TextField inputField;
 	
-	UserList u;
+	private UserList u;
 	private ObservableList<String> obsList = FXCollections.observableArrayList();    
 	public void start(Stage stage) throws IOException,ClassNotFoundException {
 		u=new UserList();
@@ -81,10 +67,10 @@ public class AdminListController {
 		String newUser=inputField.getText();
 		
 		if(newUser==null || newUser.equals("")) {
-			error("please enter a valid username!");
+			error("Please enter a valid username!");
 		}
 		else if (obsList.contains(newUser)) {
-			error("user already exsists!");
+			error("User already exists!");
 		}
 		else {
 			User insert= new User(newUser);

@@ -1,21 +1,16 @@
 package application;
-import model.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import model.User;
-import model.UserList;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import controller.LoginController;;
-
 
 public class Main extends Application {
-	Stage mainStage;
+	private Stage mainStage;
 	@Override
 	public void start(Stage stage) {
 		mainStage = stage;

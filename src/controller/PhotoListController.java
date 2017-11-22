@@ -1,20 +1,7 @@
 package controller;
 
-import javafx.scene.control.*;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
-
-import javax.imageio.ImageIO;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,34 +9,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import model.Album;
-import model.Photo;
-import model.SerializableImage;
-import model.User;
-import model.UserList;
-import model.Tag;
+import javafx.stage.Stage;
+import model.*;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class PhotoListController {
     @FXML
     private Text albumTitle1;
-    @FXML
-    private Button copyPhoto1;
-    @FXML
-    private Button movePhoto1;
-    @FXML
-    private Button addPhoto1, removePhoto1;
-    @FXML
-    private Button renamePhoto1;
-    @FXML
-    private Button photoTag1;
-    @FXML
-    private Button slideShow1, displayPhoto1;
-    @FXML
-    private Button exit1;
+//    @FXML
+//    private Button copyPhoto1;
+//    @FXML
+//    private Button movePhoto1;
+//    @FXML
+//    private Button addPhoto1, removePhoto1;
+//    @FXML
+//    private Button renamePhoto1;
+//    @FXML
+//    private Button photoTag1;
+//    @FXML
+//    private Button slideShow1, displayPhoto1;
+//    @FXML
+//    private Button exit1;
     @FXML
     private ListView photoList1;
     @FXML 
@@ -68,7 +61,7 @@ public class PhotoListController {
         u = new UserList();
         u = UserList.read();
         currentUser = username;
-        photos = new ArrayList<Photo>();
+        photos = new ArrayList<>();
         album = a;
         photos = album.getPhotos();
         storeImg = FXCollections.observableArrayList();
@@ -119,6 +112,8 @@ public class PhotoListController {
         }
         photoList1.setItems(storeImg);
         captionList.setItems(obsList2);
+        if(photoList.size() > 1)
+            photoList1.getSelectionModel().select(0);
     }
 
 
@@ -216,6 +211,10 @@ public class PhotoListController {
         if (photos.size() == 0)
             return;
         int s = photoList1.getSelectionModel().getSelectedIndex();
+        if(s == -1){
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
         if (s >= 0) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
@@ -339,6 +338,10 @@ public class PhotoListController {
         if (photos.size() == 0)
             return;
         int s = photoList1.getSelectionModel().getSelectedIndex();
+        if(s == -1){
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
         if (s >= 0) {
             Photo p = photos.get(s);
             TextInputDialog dialog = new TextInputDialog(p.getCaption());
@@ -348,8 +351,6 @@ public class PhotoListController {
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(cap -> p.setCaption(cap));
         }
-
-        //TODO: Wrong call
         display(photos);
 
     }
@@ -357,7 +358,17 @@ public class PhotoListController {
     @FXML
     protected void handleTagButton(ActionEvent event) throws IOException, ClassNotFoundException {
     	Parent parent;
-        try {
+        if (photos == null)
+            return;
+        if (photos.size() == 0)
+            return;
+        int s = photoList1.getSelectionModel().getSelectedIndex();
+
+        if(s == -1){
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
+    	try {
             u.removeUser(currentUser.getName());
             u.addUser(currentUser);
             u.write(u);
@@ -368,9 +379,9 @@ public class PhotoListController {
             Scene scene = new Scene(parent);
 
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            int s = photoList1.getSelectionModel().getSelectedIndex();
-            
-            ctrl.start(app_stage, currentUser,album,photos.get(s));
+
+
+            ctrl.start(currentUser,album,photos.get(s));
 
             app_stage.setScene(scene);
             app_stage.show();
@@ -389,6 +400,10 @@ public class PhotoListController {
         if (photos.size() == 0)
             return;
         int s = photoList1.getSelectionModel().getSelectedIndex();
+        if(s == -1){
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/IndividualPhotoDisplay.fxml"));
             parent = (Parent) loader.load();

@@ -1,60 +1,47 @@
 package controller;
-import model.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.text.Text;
-import java.io.IOException;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.application.*;
+import model.Album;
+import model.User;
+import model.UserList;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class AlbumController {
 	@FXML
 	private ListView listAlbum;
-	@FXML
-	private Button DeleteAlbum;
-	@FXML
-	private Button RenameAlbum;
-	@FXML
-	private Button OpenAlbum;
-	@FXML
-	private Button Exit;
-	@FXML
-	private Button search;
-	@FXML
-	private Button CreateAlbum;
-	@FXML
-	private TextField newAlbumText;
-	
+//	@FXML
+//	private Button DeleteAlbum;
+//	@FXML
+//	private Button RenameAlbum;
+//	@FXML
+//	private Button OpenAlbum;
+//	@FXML
+//	private Button Exit;
+//	@FXML
+//	private Button search;
+//	@FXML
+//	private Button CreateAlbum;
+
 	private ObservableList<String> obsList = FXCollections.observableArrayList();
-	User currentUser;
+	private User currentUser;
 	private List<Album> albums;
-	UserList u;
+	private UserList u;
 	public void start(Stage stage , User username) throws IOException, ClassNotFoundException {
 		currentUser=username;
 		albums=new ArrayList<Album>();
@@ -99,9 +86,20 @@ public class AlbumController {
 	}
 	
 	@FXML protected void handleCreateButton(ActionEvent event) {
-		String s= newAlbumText.getText();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("New Album");
+        dialog.setHeaderText("Create a new album?");
+        dialog.setContentText("Please the name:");
 
-		if(s==null || s.trim().length() == 0){
+        String s = "";
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            s = result.get();
+        }else{
+            return;
+        }
+
+		if(s.trim().length() == 0){
 		    alert("Error", "Invalid Name", "Please try again.");
 		    return;
         }
@@ -121,13 +119,47 @@ public class AlbumController {
 		updateDisplay();
 	}
 	@FXML protected void handleRenameButton(ActionEvent event) {
-		String s =(String) listAlbum.getSelectionModel().getSelectedItem();
-		currentUser.getAlbumByName(s).setName(newAlbumText.getText());
+	    int index = listAlbum.getSelectionModel().getSelectedIndex();
+	    if(albums.size() < 1)
+	        return;
+        if(index == -1) {
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
+        TextInputDialog dialog = new TextInputDialog((String) listAlbum.getSelectionModel().getSelectedItem());
+        dialog.setTitle("Rename the Album");
+        dialog.setHeaderText("Rename?");
+        dialog.setContentText("Please the name:");
+
+        String s;
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            s = result.get();
+        }else{
+            return;
+        }
+        if(s.trim().length() == 0){
+            alert("Error", "Invalid Name", "Please try again.");
+            return;
+        }
+        if(checkForDuplicate(s)){
+            alert("Error", "Duplicated Name", "Please try again.");
+            return;
+        }
+        currentUser.getAlbumByName((String) listAlbum.getSelectionModel().getSelectedItem()).setName(s);
 		updateDisplay();
 	}
 	@FXML protected void handleOpenButton(ActionEvent event) throws ClassNotFoundException {
 		Parent parent;
-		 try {
+        int index = listAlbum.getSelectionModel().getSelectedIndex();
+        if(albums.size() < 1)
+            return;
+        if(index == -1) {
+            alert("Error", "Invalid Selection.", "Please select an item.");
+            return;
+        }
+
+		try {
 			 		u.removeUser(currentUser.getName());
 					u.addUser(currentUser);
 			 		u.write(u);
@@ -176,11 +208,13 @@ public class AlbumController {
 	}
 
 	public void updateDisplay() {
-		obsList.clear();
+        obsList.clear();
 		for(Album a:albums) {
 			obsList.add(a.getName());
 		}
 		listAlbum.setItems(obsList);
+        if(albums.size() > 0)
+            listAlbum.getSelectionModel().select(0);
 	}
 
 	private void alert(String title, String headerText, String contentText){

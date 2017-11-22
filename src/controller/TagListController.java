@@ -8,44 +8,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import model.*;
-import controller.*;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class TagListController {
-    @FXML
-    Text phototNameTag;
-    @FXML
-    private Button addTag;
-    @FXML
-    private Button deleteTag;
-    @FXML
-    private Button editTag;
-    @FXML
-    private Button doneTag;
+//    @FXML
+//    Text phototNameTag;
+//    @FXML
+//    private Button addTag;
+//    @FXML
+//    private Button deleteTag;
+//    @FXML
+//    private Button editTag;
+//    @FXML
+//    private Button doneTag;
     @FXML
     ListView listTag;
 
     private ObservableList<String> obsList;
     private List<Tag> tags;
     private Photo currentPhoto;
-    UserList u;
-    User currentUser;
-    Album currentAlbum;
+    private UserList u;
+    private User currentUser;
+    private Album currentAlbum;
 
-    public void start(Stage Stage, User username, Album a, Photo p) throws ClassNotFoundException, IOException {
+    public void start(User username, Album a, Photo p) throws ClassNotFoundException, IOException {
         u = new UserList();
         u = UserList.read();
         currentUser = username;
