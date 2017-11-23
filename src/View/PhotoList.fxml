@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhotoListController">
+<AnchorPane prefHeight="600.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhotoListController">
    <children>
       <Button fx:id="copyPhoto1" layoutX="523.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleCopyToButton" prefHeight="31.0" prefWidth="118.0" text="Copy To" />
       <Button fx:id="movePhoto1" layoutX="523.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleMoveButton" prefHeight="31.0" prefWidth="118.0" text="Move To" />
@@ -20,7 +20,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <ListView fx:id="photoList1" fixedCellSize="80.0" layoutX="59.0" layoutY="61.0" prefHeight="501.0" prefWidth="169.0" />
+      <ListView fx:id="photoList1" fixedCellSize="80.0" layoutX="59.0" layoutY="61.0" onMouseClicked="#handleScroll" onMouseDragEntered="#handleScroll" onMouseEntered="#handleScroll" prefHeight="501.0" prefWidth="169.0" />
       <Button fx:id="removePhoto1" layoutX="523.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleRemoveButton" prefHeight="31.0" prefWidth="118.0" text="Remove Photo" />
       <Button fx:id="displayPhoto1" layoutX="523.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleDisplayButton" prefHeight="31.0" prefWidth="118.0" text="Display Photo" />
       <ListView fx:id="captionList" fixedCellSize="80.0" layoutX="225.0" layoutY="61.0" prefHeight="501.0" prefWidth="272.0" />

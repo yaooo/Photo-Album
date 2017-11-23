@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -226,7 +227,6 @@ public class AlbumController {
             Album a = currentUser.getAlbumByName(parts[0]);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/PhotoList.fxml"));
             parent = (Parent) loader.load();
-
             PhotoListController ctrl = loader.getController();
             Scene scene = new Scene(parent);
 

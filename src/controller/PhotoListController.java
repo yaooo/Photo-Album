@@ -1,11 +1,14 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArrayBase;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.*;
-
+import javafx.scene.control.ScrollBar;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,6 +49,7 @@ public class PhotoListController {
     private Album album;
     private User currentUser;
     private UserList u;
+    
 
     /**
      * Start
@@ -68,9 +72,9 @@ public class PhotoListController {
         obsList2 = FXCollections.observableArrayList();
         display(photos);
         albumTitle1.setText(album.getName());
-        captionList.setMouseTransparent( true );
-        captionList.setFocusTraversable( false );
         photoList1.getSelectionModel().select(0);
+        	
+        
     }
 
 
@@ -455,7 +459,20 @@ public class PhotoListController {
             e.printStackTrace();
         }
     }
+    
+    @FXML protected void handleScroll() {
+    	Node n1 = photoList1.lookup(".scroll-bar");
+        if (n1 instanceof ScrollBar) {
+                final ScrollBar bar1 = (ScrollBar) n1;
+                Node n2 = captionList.lookup(".scroll-bar");
+                if (n2 instanceof ScrollBar) {
+                    final ScrollBar bar2 = (ScrollBar) n2;
+                    bar1.valueProperty().bindBidirectional(bar2.valueProperty());
+                }
+                }            
 
+    }
+    
     /**
      * Alert
      * @param title title
