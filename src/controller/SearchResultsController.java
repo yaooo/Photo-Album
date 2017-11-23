@@ -90,16 +90,14 @@ public class SearchResultsController {
             imgView.setFitWidth(100);
 
             storeImg.add(imgView);
-            String h = "";
-            for (Tag t : p.getTags()) {
-                h += t.getValue() + " ,";
+            String h="";
+            for(Tag t : p.getTags()) {
+                h += t.getValue()+", ";
             }
-            if (h.equals("")) {
-                obsList2.add("");
-            } else {
-                h = h.substring(0, h.length() - 1);
-                obsList2.add(p.getCaption() + " ," + h);
-            }
+            if(p.getTags().size() > 0)
+                h = h.substring(0, h.length() -2);
+
+            obsList2.add("CAPTION: " +p.getCaption()+"\nTAG: "+h);
         }
         photoList1.setItems(storeImg);
         captionList.setItems(obsList2);

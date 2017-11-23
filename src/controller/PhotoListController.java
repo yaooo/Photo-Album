@@ -101,15 +101,12 @@ public class PhotoListController {
             storeImg.add(imgView);
             String h="";
             for(Tag t : p.getTags()) {
-            	h+=t.getValue()+" ,";
+            	h += t.getValue()+", ";
             }
-            if(h.equals("")) {
-            	obsList2.add(p.getCaption());
-            }
-            else{
-            	h=h.substring(0, h.length()-1);
-            	obsList2.add(p.getCaption()+" ,"+h);
-            }
+            if(p.getTags().size() > 0)
+                h = h.substring(0, h.length() -2);
+
+            	obsList2.add("CAPTION: " +p.getCaption()+"\nTAG: "+h);
         }
         photoList1.setItems(storeImg);
         captionList.setItems(obsList2);
@@ -165,7 +162,7 @@ public class PhotoListController {
                 if (tempImage.equals(p.getSerializableImage())) {
                     tempPhoto = p;
                     photoFound = true;
-                    error("Photo exsists in another album currently");
+                    error("Photo exists in another album currently");
                     break;
                 }
                 if (photoFound)
