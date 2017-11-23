@@ -4,10 +4,6 @@
     <list default="true" id="4fcb70b5-0c05-4c0a-8f2f-5b980e60d0cc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dat/users.dat" afterPath="$PROJECT_DIR$/dat/users.dat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/PhotoList.fxml" afterPath="$PROJECT_DIR$/src/View/PhotoList.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/SearchResults.fxml" afterPath="$PROJECT_DIR$/src/View/SearchResults.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/PhotoListController.java" afterPath="$PROJECT_DIR$/src/controller/PhotoListController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/SearchResultsController.java" afterPath="$PROJECT_DIR$/src/controller/SearchResultsController.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PhotoListController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PhotoListController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controller/PhotoListController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+            <state relative-caret-position="342">
+              <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
               <folding>
                 <element signature="docComment;class#PhotoListController#0" expanded="false" />
                 <element signature="docComment;method#start#0;class#PhotoListController#0" expanded="false" />
@@ -89,7 +85,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndividualPhotoDisplayController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IndividualPhotoDisplayController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/IndividualPhotoDisplayController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="854">
@@ -832,17 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/IndividualPhotoDisplayController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="854">
-          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#handleDoneButton#0;class#IndividualPhotoDisplayController#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/View/PhotoList.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -875,8 +860,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controller/PhotoListController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="112" column="32" lean-forward="true" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#PhotoListController#0" expanded="false" />
             <element signature="docComment;method#start#0;class#PhotoListController#0" expanded="false" />
@@ -903,6 +888,17 @@
             <element signature="method#alert#0;class#PhotoListController#0" expanded="false" />
             <element signature="docComment;method#error#0;class#PhotoListController#0" expanded="false" />
             <element signature="method#error#0;class#PhotoListController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/IndividualPhotoDisplayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="854">
+          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#handleDoneButton#0;class#IndividualPhotoDisplayController#0" expanded="false" />
           </folding>
         </state>
       </provider>
